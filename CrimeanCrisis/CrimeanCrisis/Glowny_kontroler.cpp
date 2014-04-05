@@ -20,5 +20,6 @@ void Glowny_kontroler::Start()
 
 		//najpierw trzeba by wyswietlic na pewno jakies menu startowe i potem pokierowac dalej,
 		//bo oczywiscie do rozgrywki jako takiej bedzie osobna pętla
+		
 	}
 }

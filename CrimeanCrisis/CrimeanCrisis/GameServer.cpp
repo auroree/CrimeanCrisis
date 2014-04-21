@@ -8,6 +8,8 @@ GameServer::GameServer()
 
 GameServer::~GameServer()
 {
+	//WSACleanup();
+	//closesocket(mainSocket);
 }
 
 
@@ -21,10 +23,10 @@ int GameServer::Start()	//to bêdzie jedyna uruchomiona funkcja serwera
 	//koniec inicjalizacji
 	
 	//utworzenie gniazda
-	SOCKET mainSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);		
+	mainSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);		
 	if (mainSocket == INVALID_SOCKET)
 	{
-		printf("Error creating socket: %ld\n", WSAGetLastError());
+		printf("Error creating socket: %ld ---> SERVER --->\n", WSAGetLastError());
 		WSACleanup();
 		return 1;
 	}																	
@@ -57,8 +59,41 @@ int GameServer::Start()	//to bêdzie jedyna uruchomiona funkcja serwera
 		acceptSocket = accept(mainSocket, NULL, NULL);
 	}
 
-	printf("Client connected.\n");
+	printf("Client connected. ---> SERVER\n");
 	mainSocket = acceptSocket;
-		
+
+	//odbieranie	
+	Listen();
+
+	return 0;
 	//zamkniêcie serwera
+}
+
+
+void GameServer::Listen()
+{
+	int bytesRecv = SOCKET_ERROR;
+	char* recvbuf = "";
+
+	while (true)
+	{
+		bytesRecv = recv(mainSocket, recvbuf, 32, 0);	
+		// tu gdzieœ przerabianie informacji
+		printf("Bytes received: %ld ---> SERVER\n", bytesRecv);
+		printf("Received text: %s ---> SERVER\n", recvbuf);
+		if (strcmp(recvbuf, "MAHNA MAHNA"))
+		{
+			Send("tututututu");	//bêdzie mo¿e odsy³ana odpowiedŸ?
+		}
+	}
+}
+
+
+void GameServer::Send(char* data)
+{
+	int bytesSent;		
+	char* sendbuf = data;
+
+	bytesSent = send(mainSocket, sendbuf, strlen(sendbuf), 0);
+	printf("Bytes sent: %ld ---> SERVER\n", bytesSent);
 }

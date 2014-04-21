@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Klient.h"
+#include "GameServer.h"
+
 class Glowny_kontroler
 {
 public:

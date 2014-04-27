@@ -8,10 +8,10 @@
 #include <string.h>
 #include <math.h>
 #include <iostream>
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
+#include "lib/GL/glew.h"
+#include "lib/GLFW/glfw3.h"
+#include "lib/glm/glm.hpp"
+#include "lib/glm/gtc/matrix_transform.hpp"
 #include <vector>
 
 //#pragma comment(lib, "glew32.lib")

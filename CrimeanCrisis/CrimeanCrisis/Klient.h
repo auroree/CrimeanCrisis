@@ -3,16 +3,13 @@
 #include <cstdio>
 #include <cstdlib>
 #include <WinSock2.h>
-#include <thread>
 
-class GameServer
+class Klient
 {
 public:
-	GameServer();
-	~GameServer();
+	Klient();
+	~Klient();
 	int Start();
-	void Listen();
-	void Send(char* data);
 
 private:
 	SOCKET mainSocket;

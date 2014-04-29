@@ -30,7 +30,7 @@ void Glowny_kontroler::Start()
 	//else
 	//	fprintf(stdout,"nie zaladowano obiektu\n");
 
-	Picture Tlo("grafiki/MenuTlo.png", 800, 600, 0, 0);
+	Picture Tlo("grafiki/tekstura.png", 800, 600, 0, 0);
 
 	while (!the_end)
 	{

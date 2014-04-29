@@ -49,6 +49,8 @@ x64/
 build/
 [Bb]in/
 [Oo]bj/
+CrimeanCrisis/models
+CrimeanCrisis/grafiki
 
 # MSTest test Results
 [Tt]est[Rr]esult*/

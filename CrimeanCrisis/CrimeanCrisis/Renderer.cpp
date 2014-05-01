@@ -12,9 +12,9 @@ Renderer::~Renderer()
 }
 
 bool Renderer::loadOBJ(const char * path,
-	vector< glm::vec3 > &out_vertices,
-	vector< glm::vec2 > &out_uvs,
-	vector< glm::vec3 > &out_normals) 
+	vector< glm::vec3 > & out_vertices,
+	vector< glm::vec2 > & out_uvs,
+	vector< glm::vec3 > & out_normals) 
 {
 
 	FILE * file = fopen(path, "r");
@@ -57,7 +57,7 @@ bool Renderer::loadOBJ(const char * path,
 			int matches = fscanf(file, "%d/%d/%d %d/%d/%d %d/%d/%d\n", &vertexIndex[0], &uvIndex[0], &normalIndex[0], &vertexIndex[1], &uvIndex[1], &normalIndex[1], &vertexIndex[2], &uvIndex[2], &normalIndex[2]);
 			if (matches != 9) 
 			{
-				printf("File can't be read by our simple parser : ( Try exporting with other options\n");
+				printf("File can't be read by our simple parser. Try exporting with other options\n");
 				return false;
 			}
 

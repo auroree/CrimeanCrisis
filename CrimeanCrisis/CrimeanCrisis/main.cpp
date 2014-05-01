@@ -7,7 +7,7 @@ int main(int argc, char const *argv[])
 	std::vector< glm::vec3 > vertices;
 	std::vector< glm::vec2 > uvs;
 	std::vector< glm::vec3 > normals;
-	rend->createWindow();
+	//rend->createWindow();
 	rend->loadOBJ("models/t1.obj", vertices, uvs, normals);
 
 	//glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);

@@ -2,11 +2,14 @@
 
 Glowny_kontroler::Glowny_kontroler()
 {
+	sound = new Sound();
+	sound->LoadSounds();
 }
 
 
 Glowny_kontroler::~Glowny_kontroler()
 {
+	delete sound;
 }
 
 void Glowny_kontroler::Start() 
@@ -24,13 +27,16 @@ void Glowny_kontroler::Start()
 	std::vector< glm::vec2 > uvs;
 	std::vector< glm::vec3 > normals;
 	renderer->createWindow();
-	GraphicObject test_obj;
+	//GraphicObject test_obj;
 	//if (test_obj.loadOBJ("models/t1.obj", vertices, uvs, normals))
 	//	fprintf(stdout,"zaladowano obiekt\n");
 	//else
 	//	fprintf(stdout,"nie zaladowano obiektu\n");
 
 	Picture Tlo("grafiki/tekstura.png", 800, 600, 0, 0);
+
+	//poniższe odpowiada za odpalanie dźwięku. Dźwięki otoczenia odpala się przez PlaySfx.
+	sound->PlayMusic("game");
 
 	while (!the_end)
 	{

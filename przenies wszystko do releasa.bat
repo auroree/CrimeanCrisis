@@ -1,3 +1,6 @@
+mkdir CrimeanCrisis\Release
+mkdir CrimeanCrisis\CrimeanCrisis\Release
+
 copy bin\*.* CrimeanCrisis\Release
 copy bin\*.* CrimeanCrisis\CrimeanCrisis\Release
 

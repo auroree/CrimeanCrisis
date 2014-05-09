@@ -1,3 +1,6 @@
+mkdir CrimeanCrisis\Debug
+mkdir CrimeanCrisis\CrimeanCrisis\Debug
+
 copy bin\*.* CrimeanCrisis\Debug
 copy bin\*.* CrimeanCrisis\CrimeanCrisis\Debug
 

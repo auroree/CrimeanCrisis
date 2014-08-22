@@ -58,7 +58,10 @@ build/
 *_p.c
 *.ilk
 *.meta
+<<<<<<< HEAD
 #*.obj
+=======
+>>>>>>> eca7e56662b6f62a8544187dbd020b5c8589abd6
 *.pch
 *.pdb
 *.pgc

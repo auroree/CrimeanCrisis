@@ -112,22 +112,6 @@ void Renderer::keyboard(unsigned char key, int x, int y)
 	float yChange = 1;
 
 	switch (key) {
-	case '1':
-		//light1->setCutoff(light1->getCutoff() + 5);
-		break;
-	case '2':
-		//light1->setCutoff(light1->getCutoff() - 5);
-		break;
-	case 'q':
-		//p = light1->getPos();
-		//p[0] += 1;
-		//light1->setPos(p);
-		break;
-	case 'a':
-		//p = light1->getPos();
-		//p[0] -= 1;
-		//light1->setPos(p);
-		break;
 	case 'w':
 		cam.y -= 0.5;
 		dir.y -= 0.5;
@@ -135,72 +119,42 @@ void Renderer::keyboard(unsigned char key, int x, int y)
 	case 's':
 		cam.y += 0.5;
 		dir.y += 0.5;
-		//p = light1->getPos();
-		//p[1] -= 1;
-		//light1->setPos(p);
-		break;
-	case 'e':
-		//p = light1->getPos();
-		//p[2] += 1;
-		//light1->setPos(p);
-		break;
-	case 'd':
-		//p = light1->getPos();
-		//p[2] -= 1;
-		//light1->setPos(p);
-		break;
-	case 'r':
-		//light1->modifyExponent(0.33);
-		break;
-	case 'f':
-		//light1->modifyExponent(-0.33);
 		break;
 	case 'u':
-		//light1->modifyAttenuation(2, 0.03);
 		obj->rot.x += 2.0;
 		break;
 	case 'o':
-		//light1->modifyAttenuation(2, 0.03);
 		obj->rot.x -= 2.0;
 		break;
 	case 'y':
-		//light1->modifyAttenuation(2, 0.03);
 		obj->rot.y += 2.0;
 		break;
 	case 'h':
-		//light1->modifyAttenuation(2, 0.03);
 		obj->rot.y -= 2.0;
 		break;
 	case 't':
-		//light1->modifyAttenuation(2, 0.03);
 		obj->rot.z += 2.0;
 		break;
 	case 'g':
-		//light1->modifyAttenuation(2, 0.03);
 		obj->rot.z -= 2.0;
 		break;
 	case 'j':
-		//light1->modifyAttenuation(2, -0.03);
 		obj->pos.x -= 1.0;
 		break;
 	case 'l':
-		//light1->modifyAttenuation(2, -0.03);
 		obj->pos.x += 1.0;
 		break;
 	case 'i':
-		//light1->modifyAttenuation(2, -0.03);
 		obj->pos.z -= 1.0;
 		break;
 	case 'k':
-		//light1->modifyAttenuation(2, -0.03);
 		obj->pos.z += 1.0;
 		break;
 	case KEY_ESCAPE:
 		exit(0);
 		break;
-	case ' ':
-		//cam.z += 1.0;
-		break;
+
+	// Camera zoom
 	case '-':
 		if (cam.y < 100) {
 			cam.x = (cam.y + yChange) * cam.x / cam.y;
@@ -209,6 +163,7 @@ void Renderer::keyboard(unsigned char key, int x, int y)
 		}
 		break;
 	case '+':
+	case '=':
 		if (cam.y > 25) {
 			cam.x = (cam.y - yChange) * cam.x / cam.y;
 			cam.z = (cam.y - yChange) * cam.z / cam.y;
@@ -220,7 +175,6 @@ void Renderer::keyboard(unsigned char key, int x, int y)
 
 void Renderer::specialKeys(int key, int x, int y)
 {
-
 	float move = 2.5;
 
 	switch (key)
@@ -228,22 +182,26 @@ void Renderer::specialKeys(int key, int x, int y)
 	case GLUT_KEY_RIGHT:
 		cam.x += move;
 		dir.x += move;
-		//teapot.x += move;
+		cam.z -= move;
+		dir.z -= move;
 		break;
 	case GLUT_KEY_LEFT:
 		cam.x -= move;
 		dir.x -= move;
-		//teapot.x -= move;
-		break;
-	case GLUT_KEY_UP:
-		cam.z -= move;
-		dir.z -= move;
-		//teapot.z -= move / 2;
-		break;
-	case GLUT_KEY_DOWN:
 		cam.z += move;
 		dir.z += move;
-		//teapot.z += move / 2;
+		break;
+	case GLUT_KEY_UP:
+		cam.x -= move;
+		dir.x -= move;
+		cam.z -= move;
+		dir.z -= move;
+		break;
+	case GLUT_KEY_DOWN:
+		cam.x += move;
+		dir.x += move;
+		cam.z += move;
+		dir.z += move;
 		break;
 	}
 }

@@ -6,6 +6,7 @@
 #include "Renderer.h"
 #include "GraphicObject.h"
 #include "Sound.h"
+#include "RendController.h"
 
 class Glowny_kontroler
 {

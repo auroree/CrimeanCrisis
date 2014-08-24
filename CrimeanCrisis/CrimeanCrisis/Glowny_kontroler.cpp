@@ -14,45 +14,39 @@ Glowny_kontroler::~Glowny_kontroler()
 
 void Glowny_kontroler::Start() 
 {
-	bool the_end = false;
-	GameServer server;
-	Klient klient;
-	//poniższy kod odpowiada za uruchomienie serwera i klienta
-	//std::thread first(&GameServer::Start, server);
-	//std::thread second(&Klient::Start, klient);
-	//first.join();
-	//second.join();
-	Renderer *renderer = new Renderer();		// Renderer test
-	std::vector< glm::vec3 > vertices;
-	std::vector< glm::vec2 > uvs;
-	std::vector< glm::vec3 > normals;
-	renderer->createWindow();
-	//GraphicObject test_obj;
-	//if (test_obj.loadOBJ("models/t1.obj", vertices, uvs, normals))
-	//	fprintf(stdout,"zaladowano obiekt\n");
-	//else
-	//	fprintf(stdout,"nie zaladowano obiektu\n");
+	GraphicObject *obj = new GraphicObject();
+	obj->loadOBJ("models/megahuge_t1.obj", "grafiki/tex1.bmp");
+	RendController::init(obj);
 
-	Picture Tlo("grafiki/tekstura.png", 800, 600, 0, 0);
+	obj->SetDisplay();
 
-	//poniższe odpowiada za odpalanie dźwięku. Dźwięki otoczenia odpala się przez PlaySfx.
-	sound->PlayMusic("game");
+	//static const GLfloat g_vertex_buffer_data[] = {
+	//	-100.0f, -100.0f, 10.0f,
+	//	100.0f, 100.0f, 10.0f,
+	//	-100.0f, 100.0f, 10.0f,
+	//	-100.0f, -100.0f, 10.0f,
+	//	100.0f, 100.0f, 10.0f,
+	//	100.0f, -100.0f, 10.0f,
+	//};
+	//
+	//GLuint vertexbuffer;
+	//glGenBuffers(1, &vertexbuffer);
+	//glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+	//glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
+	//glEnableVertexAttribArray(0);
+	//glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+	//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+	//glDrawArrays(GL_TRIANGLES, 0, 6); // Starting from vertex 0; 3 vertices total -> 1 triangle
+	//glDisableVertexAttribArray(0);
+	glutMainLoop();
 
-	while (!the_end)
-	{
-		//wystartowanie servera i klienta, oba potrzebne tylko do multi i będzie trzeba je uruchamiać
-		//w jakimś konkretnym momencie - a na razie nic lepszego nie ma, więc niech tu będą
-		//uprzejmie proszę o niezważanie na chwilową brzydotę - dopóki nie będę wiedział co mam przesyłać,
-		//to trzeba będzie się obchodzić smakiem i cieszyć z tego co mamy
 
-		Tlo.Update(100, 200);
-
-		//tu gdzieś będzie główna pętla gry
-
-		//najpierw trzeba by wyswietlic na pewno jakies menu startowe i potem pokierowac dalej,
-		//bo do rozgrywki jako takiej bedzie osobna pętla
-		glfwPollEvents();	//zamiast tego powinna być ładnie użyta klasa Events czy coś. 
-							//To tutaj jest tylko dlatego, żeby okienko ładnie się wyświetlało.
-		renderer->updateWindow();	//odświeżenie okna
-	}
+	//bool the_end = false;
+	//GameServer server;
+	//Klient klient;
+	////poniższy kod odpowiada za uruchomienie serwera i klienta
+	////std::thread first(&GameServer::Start, server);
+	////std::thread second(&Klient::Start, klient);
+	////first.join();
+	////second.join();
 }

@@ -18,6 +18,8 @@
 #include "GraphicObject.h"
 #include "Types.h"
 #include "Units.h"
+#include "Rain.h"
+#include "UI.h"
 
 
 class Renderer
@@ -48,6 +50,9 @@ public:
 	void resize(int, int);
 	void animate();
 
+	void set3D(int w, int h);
+	void set2D(int w, int h);
+
 	void defaultMaterial();
 	void drawBulb(Light light);
 	void setLight(Light light);
@@ -64,17 +69,11 @@ public:
 		leftParam, rightParam,
 		topParam, bottomParam;
 
-	Light* light1;
-	Vector teapot;
-	// Teapot color
-	float teapotColor[4];
-	// Teapot angle
-	float teapotAngle;
-	boolean teapotDir;
-	GLfloat ambient[4];
-	GLfloat diffuse[4];
-	GLfloat specular[4];
-	GLfloat shininess;
+	GameUI* gameUI;
+
+	Light* sun;
+	Rain* rain;
+	bool isRaining;
 
 private:
 	int x1, x2, y1, y2;								// wspó³rzêdne kursora

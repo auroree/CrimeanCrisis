@@ -1,31 +1,5 @@
 #include "Units.h"
 
-// --- UNIT
-
-Unit::Unit() {
-	this->pos.x = this->pos.y = this->pos.z = 0;
-}
-
-Unit::Unit(Vector pos) {
-	this->pos = pos;
-}
-
-// --- PLANE
-
-void Plane::CalcNormalVector() {
-
-}
-
-Plane::Plane() : Unit() {
-
-}
-
-Plane::Plane(PlaneType type, Vector pos, float w, float h) : Unit(pos) {
-	this->type = type;
-	this->w = w;
-	this->h = h;
-}
-
 // --- LIGHT
 
 void Light::initAttenuation() {

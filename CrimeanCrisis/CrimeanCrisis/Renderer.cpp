@@ -24,7 +24,7 @@ void Renderer::updateWindow()
 void Renderer::init()
 {
 	this->win.width = 1024;
-	this->win.height = 480;
+	this->win.height = 640;
 	this->win.title = "CrimeanCrisis BETA";
 	this->win.field_of_view_angle = 45;
 	this->win.z_near = 0.0f;
@@ -77,6 +77,19 @@ void Renderer::display()
 		rain->displayRain();
 	}
 
+	// elementy pomocnicze
+	glColor3f(1, 0, 0);
+	glBegin(GL_LINES);
+	glVertex3f(0, 11, 0);
+	glVertex3f(100, 11, 0);
+	glEnd();
+
+	glColor3f(0, 0, 1);
+	glBegin(GL_LINES);
+	glVertex3f(0, 11, 0);
+	glVertex3f(0, 11, 100);
+	glEnd();
+
 	// RYSOWANIE UI
 	set2D(this->win.width, this->win.height);
 
@@ -98,7 +111,6 @@ void Renderer::animate()
 
 void Renderer::keyboard(unsigned char key, int x, int y)
 {
-	float* p;
 	float yChange = 1;
 
 	switch (key) {
@@ -217,7 +229,15 @@ void Renderer::specialKeys(int key, int x, int y)
 
 void Renderer::mouse(int button, int state, int x, int y)
 {
+	ClickResult result = gameUI->whatIsClicked(x, win.height - y);
+	if (result != NoneResult)
+	{
+		// TODO: obsluga przyciskow
+		return;
+	}
 
+
+	// UWAGA, PROGRAM TU NIE WEJDZIE JESLI KLIKNIEMY W UI
 	switch (button)
 		//case GLUT_LEFT_BUTTON:
 		//	if (state == GLUT_DOWN)			// TEST

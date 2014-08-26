@@ -74,6 +74,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Button.h" />
+    <ClInclude Include="ClickResult.h" />
     <ClInclude Include="Communicator.h" />
     <ClInclude Include="Events.h" />
     <ClInclude Include="GameServer.h" />
@@ -82,6 +84,7 @@
     <ClInclude Include="Klient.h" />
     <ClInclude Include="Logic.h" />
     <ClInclude Include="LogicObject.h" />
+    <ClInclude Include="MiniMap.h" />
     <ClInclude Include="Picture.h" />
     <ClInclude Include="Rain.h" />
     <ClInclude Include="RendController.h" />
@@ -92,6 +95,7 @@
     <ClInclude Include="Units.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="Communicator.cpp" />
     <ClCompile Include="Events.cpp" />
     <ClCompile Include="GameServer.cpp" />
@@ -101,6 +105,7 @@
     <ClCompile Include="Logic.cpp" />
     <ClCompile Include="LogicObject.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MiniMap.cpp" />
     <ClCompile Include="Picture.cpp" />
     <ClCompile Include="Rain.cpp" />
     <ClCompile Include="RendController.cpp" />

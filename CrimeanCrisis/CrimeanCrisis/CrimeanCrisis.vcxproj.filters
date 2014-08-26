@@ -82,19 +82,16 @@
       <Filter>Header Files\Client</Filter>
     </ClInclude>
     <ClInclude Include="Button.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MiniMap.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Client</Filter>
     </ClInclude>
     <ClInclude Include="ClickResult.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Client</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniMap.h">
+      <Filter>Header Files\Client</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="LogicObject.cpp">
       <Filter>Source Files\Server</Filter>
     </ClCompile>
@@ -144,10 +141,13 @@
       <Filter>Source Files\Client</Filter>
     </ClCompile>
     <ClCompile Include="Button.cpp">
+      <Filter>Source Files\Client</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MiniMap.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Client</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

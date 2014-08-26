@@ -1,5 +1,4 @@
 #include "Rain.h"
-#include <iostream>
 
 using namespace std;
 
@@ -52,9 +51,7 @@ void Rain::affectParticles()
 		{
 			iter++;
 		}
-
 	}
-	cout << particles.size() << endl;
 }
 
 void Rain::displayRain()

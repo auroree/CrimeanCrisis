@@ -16,5 +16,8 @@ public:
 	void Start();
 
 private:
-	Sound *sound;
+	Sound *_sound;
+	Klient *_client;
+	GameServer *_server;
+	std::list<GraphicObject> *_objects;
 };

@@ -10,12 +10,12 @@ RendController::~RendController()
 {
 }
 
-void RendController::setObject(GraphicObject *o)
+void RendController::setObject(std::list<GraphicObject> *o)
 {
 	renderer = new Renderer(o);
 }
 
-void RendController::init(GraphicObject *o)
+void RendController::init(std::list<GraphicObject> *o)
 {
 	setObject(o);
 	renderer->init();
@@ -67,7 +67,7 @@ void RendController::init(GraphicObject *o)
 	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, 1);
 	glDepthFunc(GL_LEQUAL);
 
-	renderer->plain->SetDisplay();
+	renderer->GetPlain()->SetDisplay();
 }
 
 void RendController::display()

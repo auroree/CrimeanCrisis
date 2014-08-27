@@ -26,7 +26,7 @@ class Renderer
 {
 public:
 	Renderer();
-	Renderer(GraphicObject*);
+	Renderer(std::list<GraphicObject>*);
 	~Renderer();
 
 	typedef struct
@@ -57,9 +57,21 @@ public:
 	void drawBulb(Light light);
 	void setLight(Light light);
 
+	//accessors
+	GraphicObject* GetPlain() { return plain; }
+	bool IsRaining() { return isRaining; }
+
 	glutWindow win;
+	
+
+private:
+	int x1, x2, y1, y2;								// wspó³rzêdne kursora
+	int map_x1, map_x2, map_y1, map_y2;				// wspó³rzêdne na mapie
+	GLFWwindow *window;
+	Light* sun;
+	Rain* rain;	
 	float g_rotation;
-	GraphicObject *obj;			// jednostka (lista jednostek)
+	std::list<GraphicObject> *objList;			// jednostka (lista jednostek)
 	GraphicObject *plain;		// mapa
 
 	Vector cam;					// po³o¿enie kamery
@@ -71,14 +83,8 @@ public:
 
 	GameUI* gameUI;
 
-	Light* sun;
-	Rain* rain;
 	bool isRaining;
 
-private:
-	int x1, x2, y1, y2;								// wspó³rzêdne kursora
-	int map_x1, map_x2, map_y1, map_y2;				// wspó³rzêdne na mapie
-	GLFWwindow *window;
 };
 
 

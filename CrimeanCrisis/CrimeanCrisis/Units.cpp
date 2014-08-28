@@ -77,15 +77,6 @@ Vector Light::getPos() {
 	return pos;
 }
 
-float* Light::getPosVector() {
-	float* tab = (float*)malloc(4 * sizeof(float));
-	tab[0] = pos.x;
-	tab[1] = pos.y;
-	tab[2] = pos.z;
-	tab[3] = 1;
-	return tab;
-}
-
 Vector Light::getDir() {
 	return dir;
 }
@@ -100,9 +91,6 @@ float Light::getCutoff() {
 
 float Light::getExponent() {
 	return exponent;
-
-
-
 }
 
 void Light::setNumber(int number) {

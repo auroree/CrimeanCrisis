@@ -14,6 +14,7 @@ Renderer::Renderer(std::list<GraphicObject> *o)
 Renderer::~Renderer()
 {
 	delete sun;
+	delete gameUI;
 }
 
 void Renderer::updateWindow()
@@ -342,7 +343,13 @@ void Renderer::drawBulb(Light light)
 
 void Renderer::setLight(Light light) {
 	GLenum number = GL_LIGHT0 + light.getNumber();
-	glLightfv(number, GL_POSITION, light.getPosVector());
+	Vector pos = light.getPos();
+	float tab[4];
+	tab[0] = pos.x;
+	tab[1] = pos.y;
+	tab[2] = pos.z;
+	tab[3] = 1;
+	glLightfv(number, GL_POSITION, tab);
 	glLightfv(number, GL_SPOT_DIRECTION, light.getDir());
 	glLightf(number, GL_SPOT_CUTOFF, light.getCutoff());
 	glLightf(number, GL_CONSTANT_ATTENUATION, light.getAttenuation(0));

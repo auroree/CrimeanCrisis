@@ -90,6 +90,9 @@
     <ClInclude Include="MiniMap.h">
       <Filter>Header Files\Client</Filter>
     </ClInclude>
+    <ClInclude Include="ImageUtil.h">
+      <Filter>Header Files\Client</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="LogicObject.cpp">
@@ -147,6 +150,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MiniMap.cpp">
+      <Filter>Source Files\Client</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageUtil.cpp">
       <Filter>Source Files\Client</Filter>
     </ClCompile>
   </ItemGroup>

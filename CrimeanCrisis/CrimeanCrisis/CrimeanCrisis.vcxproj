@@ -81,6 +81,7 @@
     <ClInclude Include="GameServer.h" />
     <ClInclude Include="Glowny_kontroler.h" />
     <ClInclude Include="GraphicObject.h" />
+    <ClInclude Include="ImageUtil.h" />
     <ClInclude Include="Klient.h" />
     <ClInclude Include="Logic.h" />
     <ClInclude Include="LogicObject.h" />
@@ -101,6 +102,7 @@
     <ClCompile Include="GameServer.cpp" />
     <ClCompile Include="Glowny_kontroler.cpp" />
     <ClCompile Include="GraphicObject.cpp" />
+    <ClCompile Include="ImageUtil.cpp" />
     <ClCompile Include="Klient.cpp" />
     <ClCompile Include="Logic.cpp" />
     <ClCompile Include="LogicObject.cpp" />

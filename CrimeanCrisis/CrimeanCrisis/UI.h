@@ -8,6 +8,7 @@
 #include "Button.h"
 #include "MiniMap.h"
 #include "ClickResult.h"
+#include "ImageUtil.h"
 
 enum ActiveTab
 {
@@ -15,6 +16,9 @@ enum ActiveTab
 	TrainingTab
 };
 
+#define PANEL_BUTTON_SIZE 64
+#define PANEL_1ST_ROW 80
+#define PANEL_2ND_ROW 10
 #define TAB_COUNT 2
 #define BUILDING_COUNT 2
 #define TRAINING_COUNT 2
@@ -36,6 +40,7 @@ public:
 
 	GameUI();
 	GameUI(int w, int h);
+	void initButtons();
 	~GameUI();
 	void init();
 	void drawUI();

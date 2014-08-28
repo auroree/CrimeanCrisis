@@ -16,6 +16,18 @@ GameUI::GameUI(int w, int h)
 
 GameUI::~GameUI()
 {
+	for (int i = 0; i < TAB_COUNT; i++)
+	{
+		delete tabButtons[i];
+	}
+	for (int i = 0; i < TRAINING_COUNT; i++)
+	{
+		delete trainingButtons[i];
+	}
+	for (int i = 0; i < BUILDING_COUNT; i++)
+	{
+		delete buildingButtons[i];
+	}
 }
 
 void GameUI::init()
@@ -25,16 +37,29 @@ void GameUI::init()
 	activeTab = ActiveTab::BuildingTab;
 
 	map = new MiniMap();
+	initButtons();
+}
+
+void GameUI::initButtons()
+{
+	// load button images
+	// nie wiem czemu nie dziala z wzgledna sciezka
+	Image * building = ImageUtil::loadBmp("D:\\Dropbox\\GitHub\\CrimeanCrisis\\CrimeanCrisis\\Debug\\ui\\building.bmp");
+	Image * training = ImageUtil::loadBmp("D:\\Dropbox\\GitHub\\CrimeanCrisis\\CrimeanCrisis\\Debug\\ui\\training.bmp");
+	Image * building1 = ImageUtil::loadBmp("D:\\Dropbox\\GitHub\\CrimeanCrisis\\CrimeanCrisis\\Debug\\ui\\building1.bmp");
+	Image * training1 = ImageUtil::loadBmp("D:\\Dropbox\\GitHub\\CrimeanCrisis\\CrimeanCrisis\\Debug\\ui\\training1.bmp");
+	Image * building2 = ImageUtil::loadBmp("D:\\Dropbox\\GitHub\\CrimeanCrisis\\CrimeanCrisis\\Debug\\ui\\building2.bmp");
+	Image * training2 = ImageUtil::loadBmp("D:\\Dropbox\\GitHub\\CrimeanCrisis\\CrimeanCrisis\\Debug\\ui\\training2.bmp");
 
 	// buttons
-	tabButtons[0] = new Button("B", "", 200, 20, 50, 50, ClickResult::Building);
-	tabButtons[1] = new Button("T", "", 200, 80, 50, 50, ClickResult::Training);
+	tabButtons[0] = new Button("B", building, 200, PANEL_1ST_ROW, PANEL_BUTTON_SIZE, PANEL_BUTTON_SIZE, ClickResult::Building);
+	tabButtons[1] = new Button("T", training, 200, PANEL_2ND_ROW, PANEL_BUTTON_SIZE, PANEL_BUTTON_SIZE, ClickResult::Training);
 
-	buildingButtons[0] = new Button("B1", "", 300, 20, 50, 50, ClickResult::Building1);
-	buildingButtons[1] = new Button("B2", "", 300, 80, 50, 50, ClickResult::Building2);
+	buildingButtons[0] = new Button("B1", building1, 300, PANEL_1ST_ROW, PANEL_BUTTON_SIZE, PANEL_BUTTON_SIZE, ClickResult::Building1);
+	buildingButtons[1] = new Button("B2", building2, 300, PANEL_2ND_ROW, PANEL_BUTTON_SIZE, PANEL_BUTTON_SIZE, ClickResult::Building2);
 
-	trainingButtons[0] = new Button("T1", "", 300, 20, 50, 50, ClickResult::Troop1);
-	trainingButtons[1] = new Button("T2", "", 300, 80, 50, 50, ClickResult::Troop2);
+	trainingButtons[0] = new Button("T1", training1, 300, PANEL_1ST_ROW, PANEL_BUTTON_SIZE, PANEL_BUTTON_SIZE, ClickResult::Troop1);
+	trainingButtons[1] = new Button("T2", training2, 300, PANEL_2ND_ROW, PANEL_BUTTON_SIZE, PANEL_BUTTON_SIZE, ClickResult::Troop2);
 }
 
 void GameUI::drawUI()

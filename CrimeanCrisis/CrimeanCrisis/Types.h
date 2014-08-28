@@ -34,40 +34,4 @@ public:
 
 };
 
-// Class representing rectangle in 3D space
-class Rectangle {
-private:
-	static int count;
-	int id;
-	Vector startPoint;
-	// width
-	float dim1;
-	// height or depth
-	float dim2;
-
-	void initDims();
-
-public:
-	Rectangle();
-	Rectangle(Vector startPoint);
-	Rectangle(Vector startPoint, float dim1, float dim2);
-
-	int getCount();
-	int getId();
-	Vector getStartPoint();
-	float getWidth();
-	float getHeight();
-	float getDepth();
-
-	void setId(int id);
-	void setStartPoint(Vector point);
-	void setWidth(float width);
-	void setHeight(float height);
-	void setDepth(float depth);
-
-	void modifyWidth(float width);
-	void modifyHeight(float height);
-	void modifyDepth(float depth);
-};
-
 #endif

@@ -27,7 +27,6 @@ public:
 
 	int getNumber();
 	Vector getPos();
-	float* getPosVector();
 	Vector getDir();
 	float getAttenuation(int i);
 	float getCutoff();

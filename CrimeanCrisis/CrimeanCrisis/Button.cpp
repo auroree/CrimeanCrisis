@@ -1,15 +1,21 @@
 #include "Button.h"
 
-Button::Button(char text[], char imagePath[], int locationX, int locationY, int width, int height, ClickResult buttonType)
+Button::Button(char text[], Image * image, int locationX, int locationY, int width, int height, ClickResult buttonType)
 {
 	strcpy_s(this->text, text);
-	strcpy_s(this->imagePath, imagePath);
+	this->image = image;
 	this->locationX = locationX;
 	this->locationY = locationY;
 	this->width = width;
 	this->height = height;
 	this->buttonType = buttonType;
 	defaultColors();
+}
+
+Button::~Button()
+{
+	free(this->image->data);
+	free(this->image);
 }
 
 void Button::drawButton()
@@ -23,8 +29,14 @@ void Button::drawButton()
 	glVertex2f(locationX, locationY + height);
 	glEnd();
 
-	// text
-	drawText();
+	if (image == NULL)
+	{
+		drawText();
+	}
+	else
+	{
+		drawImage();
+	}
 	
 }
 
@@ -42,7 +54,7 @@ bool Button::isClicked(int x, int y)
 
 void Button::defaultColors()
 {
-	this->background = { 1, 1, 0, 0.8f };
+	this->background = { 0.15f, 0.3f, 0.6f, 0.8f };
 	this->font = { 0, 0, 0, 1 };
 }
 
@@ -58,6 +70,13 @@ void Button::drawText()
 		glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, text[i]);
 	}
 	glEnable(GL_BLEND);
+}
+
+void Button::drawImage()
+{
+	glRasterPos2i(locationX, locationY);
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	glDrawPixels(image->sizeX, image->sizeY, GL_RGB, GL_UNSIGNED_BYTE, image->data);
 }
 
 

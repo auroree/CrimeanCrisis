@@ -2,23 +2,27 @@
 
 Glowny_kontroler::Glowny_kontroler()
 {
-	sound = new Sound();
-	sound->LoadSounds();
+	_sound = new Sound();
+	_sound->LoadSounds();
+	_objects = new std::list<GraphicObject>();
 }
 
 
 Glowny_kontroler::~Glowny_kontroler()
 {
-	delete sound;
+	delete _sound;
+	_objects->clear();
+	delete _objects;
 }
 
 void Glowny_kontroler::Start() 
 {
-	GraphicObject *obj = new GraphicObject();
-	obj->loadOBJ("models/megahuge_t1.obj", "grafiki/tex1.bmp");
-	RendController::init(obj);
-
-	obj->SetDisplay();
+	GraphicObject obj;	
+	obj.loadOBJ("models/megahuge_t1.obj", "grafiki/tex1.bmp");
+	RendController::init(_objects);
+	obj.SetDisplay();
+	_objects->push_back(obj);
+		
 
 	//static const GLfloat g_vertex_buffer_data[] = {
 	//	-100.0f, -100.0f, 10.0f,
@@ -43,7 +47,7 @@ void Glowny_kontroler::Start()
 
 	//bool the_end = false;
 	//GameServer server;
-	//Klient klient;
+	//Klient klient(_objects);
 	////poniższy kod odpowiada za uruchomienie serwera i klienta
 	////std::thread first(&GameServer::Start, server);
 	////std::thread second(&Klient::Start, klient);

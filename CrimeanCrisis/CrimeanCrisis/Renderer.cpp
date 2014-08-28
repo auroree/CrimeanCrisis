@@ -6,9 +6,9 @@ Renderer::Renderer() : window(NULL)
 {
 }
 
-Renderer::Renderer(GraphicObject *o)
+Renderer::Renderer(std::list<GraphicObject> *o)
 {
-	obj = o;		//przeciążyć operator
+	objList = o;		//przeciążyć operator
 }
 
 Renderer::~Renderer()
@@ -69,7 +69,12 @@ void Renderer::display()
 	glPopMatrix();
 	glPushMatrix();
 	plain->Draw();		// rysuj mapę
-	obj->Draw();		// rysuj jednostki
+
+	std::list<GraphicObject>::iterator iter;	// rysuj jednostki
+	for (iter = objList->begin(); iter != objList->end(); ++iter) {
+		iter->Draw();
+	}
+		
 	glPopMatrix();
 
 	if (isRaining)
@@ -122,7 +127,7 @@ void Renderer::keyboard(unsigned char key, int x, int y)
 		cam.y += 0.5;
 		dir.y += 0.5;
 		break;
-	case 'u':
+	/*case 'u':
 		obj->rot.x += 2.0;
 		break;
 	case 'o':
@@ -151,7 +156,7 @@ void Renderer::keyboard(unsigned char key, int x, int y)
 		break;
 	case 'k':
 		obj->pos.z += 1.0;
-		break;
+		break;*/
 	case KEY_ESCAPE:
 		exit(0);
 		break;

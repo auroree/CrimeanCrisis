@@ -48,4 +48,6 @@ ClickResult ServerMenu::whatIsClicked(int x, int y, ServerProperties * serverPro
 	}
 
 	// TODO: server info, jeszcze nie wiem
+
+	return ClickResult::NoneResult;
 }

@@ -22,7 +22,6 @@
 #include "UI.h"
 #include "MainMenu.h"
 #include "ServerMenu.h"
-#include "ServerProperties.h"
 
 enum Screen
 {
@@ -72,14 +71,11 @@ public:
 
 	glutWindow win;
 	
-
 private:
 	Screen screen;
 	int x1, x2, y1, y2;								// wspó³rzêdne kursora
 	int map_x1, map_x2, map_y1, map_y2;				// wspó³rzêdne na mapie
 	GLFWwindow *window;
-	Light* sun;
-	Rain* rain;	
 	float g_rotation;
 	std::list<GraphicObject> *objList;			// jednostka (lista jednostek)
 	GraphicObject *plain;		// mapa
@@ -93,6 +89,8 @@ private:
 
 	bool mousePressed;
 
+	Light* sun;
+	Rain* rain;
 	GameUI * gameUI;
 	MainMenu * mainMenu;
 	ServerMenu * serverMenu;

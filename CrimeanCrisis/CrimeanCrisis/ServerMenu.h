@@ -9,7 +9,6 @@
 #include "MiniMap.h"
 #include "ClickResult.h"
 #include "ImageUtil.h"
-#include "ServerProperties.h"
 
 #define BUTTONS_COUNT 2
 

@@ -10,18 +10,18 @@
 #include "ClickResult.h"
 #include "ImageUtil.h"
 
-enum ActiveTab
-{
-	BuildingTab,
-	ArmyTab
-};
-
 #define PANEL_BUTTON_SIZE 64
 #define PANEL_1ST_ROW 80
 #define PANEL_2ND_ROW 10
 #define TAB_COUNT 2
 #define BUILDING_COUNT 2
 #define ARMY_COUNT 2
+
+enum ActiveTab
+{
+	BuildingTab,
+	ArmyTab
+};
 
 class GameUI
 {

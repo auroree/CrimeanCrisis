@@ -91,7 +91,7 @@
     <ClInclude Include="Rain.h" />
     <ClInclude Include="RendController.h" />
     <ClInclude Include="Renderer.h" />
-    <ClInclude Include="ServerMenu.h" />
+    <ClInclude Include="SimpleTypes.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Types.h" />
     <ClInclude Include="UI.h" />

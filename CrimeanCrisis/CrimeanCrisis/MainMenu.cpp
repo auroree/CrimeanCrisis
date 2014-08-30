@@ -51,4 +51,6 @@ ClickResult MainMenu::whatIsClicked(int x, int y)
 			return buttons[i]->getButtonType();
 		}
 	}
+
+	return ClickResult::NoneResult;
 }

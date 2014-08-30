@@ -27,7 +27,8 @@ void Renderer::updateWindow()
 
 void Renderer::init()
 {
-	this->screen = Screen::MainMenuScreen;
+	this->screen = Screen::ServerMenuScreen;
+
 	this->win.width = 1024;
 	this->win.height = 640;
 	this->win.title = "CrimeanCrisis BETA";
@@ -51,7 +52,7 @@ void Renderer::init()
 	// sloneczko
 	Vector lightPos(0, 70, 0), lightDir(0, -1, 0);
 	float att[3] = { 1.5, 0, 0 };
-	sun = new Light(0, lightPos, lightDir, att, 180, 0);
+	sun = new Light(0, lightPos, lightDir, att, 80, 0);
 	// deszcz
 	isRaining = false;
 	// UI
@@ -277,14 +278,6 @@ void Renderer::specialKeys(int key, int x, int y)
 
 void Renderer::mouse(int button, int state, int x, int y)
 {
-	if (mousePressed == false)
-	{
-		mousePressed = true;
-		return;
-	}
-
-	mousePressed = false;
-
 	ClickResult result = ClickResult::NoneResult;
 	ServerProperties * serverProperties = NULL;
 
@@ -303,7 +296,7 @@ void Renderer::mouse(int button, int state, int x, int y)
 		break;
 	}
 	
-	if (result != ClickResult::NoneResult)
+	if (result != ClickResult::NoneResult && state == GLUT_DOWN)
 	{
 		switch (result)
 		{
@@ -320,7 +313,7 @@ void Renderer::mouse(int button, int state, int x, int y)
 			break;
 
 		case Quit:
-			// TODO: wyjscie
+			exit(0);
 			break;
 		}
 		return;
@@ -328,6 +321,7 @@ void Renderer::mouse(int button, int state, int x, int y)
 
 
 	// UWAGA, PROGRAM TU NIE WEJDZIE JESLI KLIKNIEMY W UI
+	// SPRAWDZIC CZY JESTESMY W GAME SCREEN
 	switch (button)
 		//case GLUT_LEFT_BUTTON:
 		//	if (state == GLUT_DOWN)			// TEST

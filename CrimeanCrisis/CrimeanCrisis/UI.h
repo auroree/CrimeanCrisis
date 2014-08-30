@@ -38,7 +38,6 @@ private:
 public:
 	int width, height;
 
-	GameUI();
 	GameUI(int w, int h);
 	~GameUI();
 

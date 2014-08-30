@@ -27,6 +27,7 @@ void Renderer::updateWindow()
 
 void Renderer::init()
 {
+	// EKRAN STARTOWY
 	this->screen = Screen::ServerMenuScreen;
 
 	this->win.width = 1024;
@@ -58,7 +59,7 @@ void Renderer::init()
 	// UI
 	gameUI = new GameUI(win.width, win.height);
 	mainMenu = new MainMenu();
-	serverMenu = new ServerMenu();
+	serverMenu = new ServerMenu(win.width, win.height);
 
 	x1 = x2 = y1 = y2 = 0;
 }
@@ -279,7 +280,10 @@ void Renderer::specialKeys(int key, int x, int y)
 void Renderer::mouse(int button, int state, int x, int y)
 {
 	ClickResult result = ClickResult::NoneResult;
-	ServerProperties * serverProperties = NULL;
+	ServerProperties * serverProperties = new ServerProperties; 
+	strcpy_s(serverProperties->host, "");
+	strcpy_s(serverProperties->port, "");
+
 
 	switch (screen)
 	{
@@ -305,6 +309,8 @@ void Renderer::mouse(int button, int state, int x, int y)
 			break;
 
 		case SelectServer:
+			// TODO: 
+			// mamy juz dane servera (moga byc puste, jesli nie wybrano)
 			screen = Screen::GameScreen;
 			break;	
 

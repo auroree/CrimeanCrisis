@@ -38,6 +38,16 @@ ClickResult Button::getButtonType()
 	return buttonType;
 }
 
+char * Button::getText()
+{
+	return this->text;
+}
+
+void Button::setStyle(ButtonStyle style)
+{
+	this->style = style;
+}
+
 bool Button::isClicked(int x, int y)
 {
 	bool checkX = locationX <= x && x <= locationX + style.width;

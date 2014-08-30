@@ -7,6 +7,7 @@ enum ClickResult
 	Multiplayer,
 	Quit,
 	// ServerMenu
+	MarkServer,
 	SelectServer,
 	Back,
 	// Game UI

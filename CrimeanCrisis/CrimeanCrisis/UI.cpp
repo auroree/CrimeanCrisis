@@ -1,12 +1,5 @@
 #include "UI.h"
 
-GameUI::GameUI()
-{
-	width = 800;
-	height = 640;
-	init();
-}
-
 GameUI::GameUI(int w, int h)
 {
 	width = w;

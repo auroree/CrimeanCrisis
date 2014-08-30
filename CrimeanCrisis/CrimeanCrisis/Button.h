@@ -31,6 +31,8 @@ public:
 
 	void drawButton();
 	ClickResult getButtonType();
+	char * getText();
+	void setStyle(ButtonStyle style);
 	bool isClicked(int x, int y);
 
 private:

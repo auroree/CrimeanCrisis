@@ -10,7 +10,8 @@
 #include "ClickResult.h"
 #include "ImageUtil.h"
 
-#define BUTTONS_COUNT 2
+#define SERVER_MENU_BUTTONS_COUNT 2
+#define SERVER_MAX_COUNT 10
 
 struct ServerProperties
 {
@@ -21,15 +22,23 @@ struct ServerProperties
 class ServerMenu
 {
 private:
-	Button * buttons[BUTTONS_COUNT];
+	ButtonStyle serverStyle;
+	ButtonStyle markedServerStyle;
+	Button * buttons[SERVER_MENU_BUTTONS_COUNT];
+	Button * servers[SERVER_MAX_COUNT];
+	int serverCount;
+	int markedServer;
+	int width, height;
 
 public:
-	ServerMenu();
+	ServerMenu(int w, int h);
 	~ServerMenu();
 
 	void drawServerMenu();
+	void addServer(ServerProperties * serverProperties);
 	ClickResult whatIsClicked(int x, int y, ServerProperties * serverProperties);
 
 private:
 	void init();
+	void markServer(int id);
 };

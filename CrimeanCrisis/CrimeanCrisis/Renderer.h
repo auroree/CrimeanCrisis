@@ -20,7 +20,16 @@
 #include "Units.h"
 #include "Rain.h"
 #include "UI.h"
+#include "MainMenu.h"
+#include "ServerMenu.h"
+#include "ServerProperties.h"
 
+enum Screen
+{
+	MainMenuScreen,
+	ServerMenuScreen,
+	GameScreen
+};
 
 class Renderer
 {
@@ -65,6 +74,7 @@ public:
 	
 
 private:
+	Screen screen;
 	int x1, x2, y1, y2;								// wspó³rzêdne kursora
 	int map_x1, map_x2, map_y1, map_y2;				// wspó³rzêdne na mapie
 	GLFWwindow *window;
@@ -81,10 +91,17 @@ private:
 		leftParam, rightParam,
 		topParam, bottomParam;
 
-	GameUI* gameUI;
+	bool mousePressed;
+
+	GameUI * gameUI;
+	MainMenu * mainMenu;
+	ServerMenu * serverMenu;
 
 	bool isRaining;
 
+	void displayGameScreen();
+	void displayMainMenuScreen();
+	void displayServerMenuScreen();
 };
 
 

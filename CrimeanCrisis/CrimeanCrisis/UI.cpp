@@ -20,9 +20,9 @@ GameUI::~GameUI()
 	{
 		delete tabButtons[i];
 	}
-	for (int i = 0; i < TRAINING_COUNT; i++)
+	for (int i = 0; i < ARMY_COUNT; i++)
 	{
-		delete trainingButtons[i];
+		delete armyButtons[i];
 	}
 	for (int i = 0; i < BUILDING_COUNT; i++)
 	{
@@ -45,21 +45,25 @@ void GameUI::initButtons()
 	// load button images
 	// nie wiem czemu nie dziala z wzgledna sciezka
 	Image * building = ImageUtil::loadBmp("D:\\Dropbox\\GitHub\\CrimeanCrisis\\CrimeanCrisis\\Debug\\ui\\building.bmp");
-	Image * training = ImageUtil::loadBmp("D:\\Dropbox\\GitHub\\CrimeanCrisis\\CrimeanCrisis\\Debug\\ui\\training.bmp");
+	Image * army = ImageUtil::loadBmp("D:\\Dropbox\\GitHub\\CrimeanCrisis\\CrimeanCrisis\\Debug\\ui\\army.bmp");
 	Image * building1 = ImageUtil::loadBmp("D:\\Dropbox\\GitHub\\CrimeanCrisis\\CrimeanCrisis\\Debug\\ui\\building1.bmp");
-	Image * training1 = ImageUtil::loadBmp("D:\\Dropbox\\GitHub\\CrimeanCrisis\\CrimeanCrisis\\Debug\\ui\\training1.bmp");
+	Image * army1 = ImageUtil::loadBmp("D:\\Dropbox\\GitHub\\CrimeanCrisis\\CrimeanCrisis\\Debug\\ui\\army1.bmp");
 	Image * building2 = ImageUtil::loadBmp("D:\\Dropbox\\GitHub\\CrimeanCrisis\\CrimeanCrisis\\Debug\\ui\\building2.bmp");
-	Image * training2 = ImageUtil::loadBmp("D:\\Dropbox\\GitHub\\CrimeanCrisis\\CrimeanCrisis\\Debug\\ui\\training2.bmp");
+	Image * army2 = ImageUtil::loadBmp("D:\\Dropbox\\GitHub\\CrimeanCrisis\\CrimeanCrisis\\Debug\\ui\\army2.bmp");
 
 	// buttons
-	tabButtons[0] = new Button("B", building, 200, PANEL_1ST_ROW, PANEL_BUTTON_SIZE, PANEL_BUTTON_SIZE, ClickResult::Building);
-	tabButtons[1] = new Button("T", training, 200, PANEL_2ND_ROW, PANEL_BUTTON_SIZE, PANEL_BUTTON_SIZE, ClickResult::Training);
+	Color font(0, 0, 0, 1);
+	Color background(0.15f, 0.3f, 0.6f, 0.8f);
+	ButtonStyle style = { PANEL_BUTTON_SIZE, PANEL_BUTTON_SIZE, font, background };
 
-	buildingButtons[0] = new Button("B1", building1, 300, PANEL_1ST_ROW, PANEL_BUTTON_SIZE, PANEL_BUTTON_SIZE, ClickResult::Building1);
-	buildingButtons[1] = new Button("B2", building2, 300, PANEL_2ND_ROW, PANEL_BUTTON_SIZE, PANEL_BUTTON_SIZE, ClickResult::Building2);
+	tabButtons[0] = new Button("Buildings", building, 200, PANEL_1ST_ROW, style, ClickResult::Building);
+	tabButtons[1] = new Button("Army", army, 200, PANEL_2ND_ROW, style, ClickResult::Army);
 
-	trainingButtons[0] = new Button("T1", training1, 300, PANEL_1ST_ROW, PANEL_BUTTON_SIZE, PANEL_BUTTON_SIZE, ClickResult::Troop1);
-	trainingButtons[1] = new Button("T2", training2, 300, PANEL_2ND_ROW, PANEL_BUTTON_SIZE, PANEL_BUTTON_SIZE, ClickResult::Troop2);
+	buildingButtons[0] = new Button("Building1", building1, 300, PANEL_1ST_ROW, style, ClickResult::Building1);
+	buildingButtons[1] = new Button("Building12", building2, 300, PANEL_2ND_ROW, style, ClickResult::Building2);
+
+	armyButtons[0] = new Button("Troop1", army1, 300, PANEL_1ST_ROW, style, ClickResult::Troop1);
+	armyButtons[1] = new Button("Troop2", army2, 300, PANEL_2ND_ROW, style, ClickResult::Troop2);
 }
 
 void GameUI::drawUI()
@@ -94,10 +98,10 @@ void GameUI::drawUI()
 		}
 		break;
 
-	case ActiveTab::TrainingTab:
-		for (int i = 0; i < TRAINING_COUNT; i++)
+	case ActiveTab::ArmyTab:
+		for (int i = 0; i < ARMY_COUNT; i++)
 		{
-			trainingButtons[i]->drawButton();
+			armyButtons[i]->drawButton();
 		}
 		break;
 	}
@@ -115,7 +119,7 @@ ClickResult GameUI::whatIsClicked(int x, int y)
 	}
 
 	// tab buttons
-	for (int i = 0; i < 2; i++)
+	for (int i = 0; i < TAB_COUNT; i++)
 	{
 		if (tabButtons[i]->isClicked(x, y))
 		{
@@ -125,8 +129,8 @@ ClickResult GameUI::whatIsClicked(int x, int y)
 			case Building:
 				activeTab = ActiveTab::BuildingTab;
 				return result;
-			case Training:
-				activeTab = ActiveTab::TrainingTab;
+			case Army:
+				activeTab = ActiveTab::ArmyTab;
 				return result;
 			}
 		}
@@ -145,12 +149,12 @@ ClickResult GameUI::whatIsClicked(int x, int y)
 		}
 		break;
 
-	case ActiveTab::TrainingTab:
-		for (int i = 0; i < TRAINING_COUNT; i++)
+	case ActiveTab::ArmyTab:
+		for (int i = 0; i < ARMY_COUNT; i++)
 		{
-			if (trainingButtons[i]->isClicked(x, y))
+			if (armyButtons[i]->isClicked(x, y))
 			{
-				return trainingButtons[i]->getButtonType();
+				return armyButtons[i]->getButtonType();
 			}
 		}
 		break;

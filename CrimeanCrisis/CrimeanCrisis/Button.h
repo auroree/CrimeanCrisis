@@ -1,8 +1,8 @@
 #pragma once
 
 #include <Windows.h>
-#include <GL/GL.h>
-#include <GL/glut.h>
+#include "lib/GL/GL.h"
+#include "lib/GL/glut.h"
 #include <string.h>
 #include "Types.h"
 #include "ClickResult.h"

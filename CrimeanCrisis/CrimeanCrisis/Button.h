@@ -8,25 +8,34 @@
 #include "ClickResult.h"
 #include "ImageUtil.h"
 
+struct ButtonStyle
+{
+	int width;
+	int height;
+	Color font;
+	Color background;
+};
+
 class Button
 {
 private:
-	int locationX, locationY, width, height;
+	int locationX, locationY;
+	ButtonStyle style;
 	char text[100];
 	Image * image;
-	Color background;
-	Color font;
 	ClickResult buttonType;
 
 public:
-	Button(char text[], Image * image, int locationX, int locationY, int width, int height, ClickResult buttonType);
+	Button(char text[], Image * image, int locationX, int locationY, ButtonStyle style, ClickResult buttonType);
 	~Button();
+
 	void drawButton();
 	ClickResult getButtonType();
+	char * getText();
+	void setStyle(ButtonStyle style);
 	bool isClicked(int x, int y);
 
 private:
-	void defaultColors();
 	void drawText();
 	void drawImage();
 };

@@ -47,6 +47,7 @@
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <DisableSpecificWarnings>4244;4305;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -85,11 +86,13 @@
     <ClInclude Include="Klient.h" />
     <ClInclude Include="Logic.h" />
     <ClInclude Include="LogicObject.h" />
+    <ClInclude Include="MainMenu.h" />
     <ClInclude Include="MiniMap.h" />
     <ClInclude Include="Picture.h" />
     <ClInclude Include="Rain.h" />
     <ClInclude Include="RendController.h" />
     <ClInclude Include="Renderer.h" />
+    <ClInclude Include="ServerMenu.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Types.h" />
     <ClInclude Include="UI.h" />
@@ -107,11 +110,13 @@
     <ClCompile Include="Logic.cpp" />
     <ClCompile Include="LogicObject.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="MiniMap.cpp" />
     <ClCompile Include="Picture.cpp" />
     <ClCompile Include="Rain.cpp" />
     <ClCompile Include="RendController.cpp" />
     <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="ServerMenu.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Types.cpp" />
     <ClCompile Include="UI.cpp" />

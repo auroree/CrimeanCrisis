@@ -4,6 +4,7 @@ using namespace glm;
 
 Renderer::Renderer() : window(NULL)
 {
+
 }
 
 Renderer::Renderer(std::list<GraphicObject> *o)
@@ -15,6 +16,8 @@ Renderer::~Renderer()
 {
 	delete sun;
 	delete gameUI;
+	delete mainMenu;
+	delete serverMenu;
 }
 
 void Renderer::updateWindow()
@@ -24,6 +27,9 @@ void Renderer::updateWindow()
 
 void Renderer::init()
 {
+	// EKRAN STARTOWY
+	this->screen = Screen::ServerMenuScreen;
+
 	this->win.width = 1024;
 	this->win.height = 640;
 	this->win.title = "CrimeanCrisis BETA";
@@ -42,19 +48,59 @@ void Renderer::init()
 	this->cam.z = 25.0;
 	this->dir.x = this->dir.y = this->dir.z = 0;
 
+	mousePressed = false;
+
 	// sloneczko
 	Vector lightPos(0, 70, 0), lightDir(0, -1, 0);
 	float att[3] = { 1.5, 0, 0 };
-	sun = new Light(0, lightPos, lightDir, att, 180, 0);
+	sun = new Light(0, lightPos, lightDir, att, 80, 0);
 	// deszcz
 	isRaining = false;
 	// UI
 	gameUI = new GameUI(win.width, win.height);
+	mainMenu = new MainMenu();
+	serverMenu = new ServerMenu(win.width, win.height);
 
 	x1 = x2 = y1 = y2 = 0;
 }
 
 void Renderer::display()
+{
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	switch (screen)
+	{
+	case MainMenuScreen:
+		this->displayMainMenuScreen();
+		break;
+
+	case ServerMenuScreen:
+		this->displayServerMenuScreen();
+		break;
+
+	case GameScreen:
+		this->displayGameScreen();
+		break;
+	}
+
+	glutSwapBuffers();
+}
+
+void Renderer::displayMainMenuScreen()
+{
+	set2D(this->win.width, this->win.height);
+
+	mainMenu->drawMainMenu();
+}
+
+void Renderer::displayServerMenuScreen()
+{
+	set2D(this->win.width, this->win.height);
+
+	serverMenu->drawServerMenu();
+}
+
+void Renderer::displayGameScreen()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_MODELVIEW);
@@ -100,8 +146,6 @@ void Renderer::display()
 	set2D(this->win.width, this->win.height);
 
 	gameUI->drawUI();
-
-	glutSwapBuffers();
 }
 
 void Renderer::animate()
@@ -235,15 +279,55 @@ void Renderer::specialKeys(int key, int x, int y)
 
 void Renderer::mouse(int button, int state, int x, int y)
 {
-	ClickResult result = gameUI->whatIsClicked(x, win.height - y);
-	if (result != NoneResult)
+	ClickResult result = ClickResult::NoneResult;
+	ServerProperties * serverProperties = new ServerProperties; 
+	strcpy_s(serverProperties->host, "");
+	strcpy_s(serverProperties->port, "");
+
+
+	switch (screen)
 	{
-		// TODO: obsluga przyciskow
+	case MainMenuScreen:
+		result = mainMenu->whatIsClicked(x, win.height - y);
+		break;
+
+	case ServerMenuScreen:
+		result = serverMenu->whatIsClicked(x, win.height - y, serverProperties);
+		break;
+
+	case GameScreen:
+		result = gameUI->whatIsClicked(x, win.height - y);
+		break;
+	}
+	
+	if (result != ClickResult::NoneResult && state == GLUT_DOWN)
+	{
+		switch (result)
+		{
+		case Multiplayer:
+			screen = Screen::ServerMenuScreen;
+			break;
+
+		case SelectServer:
+			// TODO: 
+			// mamy juz dane servera (moga byc puste, jesli nie wybrano)
+			screen = Screen::GameScreen;
+			break;	
+
+		case Back:
+			screen = Screen::MainMenuScreen;
+			break;
+
+		case Quit:
+			exit(0);
+			break;
+		}
 		return;
 	}
 
 
 	// UWAGA, PROGRAM TU NIE WEJDZIE JESLI KLIKNIEMY W UI
+	// SPRAWDZIC CZY JESTESMY W GAME SCREEN
 	switch (button)
 		//case GLUT_LEFT_BUTTON:
 		//	if (state == GLUT_DOWN)			// TEST

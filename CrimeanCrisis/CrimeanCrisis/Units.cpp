@@ -1,31 +1,4 @@
 #include "Units.h"
-
-// --- UNIT
-
-Unit::Unit() {
-	this->pos.x = this->pos.y = this->pos.z = 0;
-}
-
-Unit::Unit(Vector pos) {
-	this->pos = pos;
-}
-
-// --- PLANE
-
-void Plane::CalcNormalVector() {
-
-}
-
-Plane::Plane() : Unit() {
-
-}
-
-Plane::Plane(PlaneType type, Vector pos, float w, float h) : Unit(pos) {
-	this->type = type;
-	this->w = w;
-	this->h = h;
-}
-
 // --- LIGHT
 
 void Light::initAttenuation() {
@@ -103,15 +76,6 @@ Vector Light::getPos() {
 	return pos;
 }
 
-float* Light::getPosVector() {
-	float* tab = (float*)malloc(4 * sizeof(float));
-	tab[0] = pos.x;
-	tab[1] = pos.y;
-	tab[2] = pos.z;
-	tab[3] = 1;
-	return tab;
-}
-
 Vector Light::getDir() {
 	return dir;
 }
@@ -126,9 +90,6 @@ float Light::getCutoff() {
 
 float Light::getExponent() {
 	return exponent;
-
-
-
 }
 
 void Light::setNumber(int number) {

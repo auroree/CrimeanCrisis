@@ -1,4 +1,4 @@
-ï»¿#include "GraphicObject.h"
+#include "GraphicObject.h"
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 GraphicObject::GraphicObject()
 {
@@ -7,9 +7,9 @@ GraphicObject::GraphicObject()
 
 	this->pos.x = 0.0;
 	this->pos.y = 3.5;
-	this->pos.z = 10.0; 
+	this->pos.z = 10.0;
 
-	this->box.cfp.x = this->pos.x + objLength;		// uwzglÄ™dniÄ‡ rotacjÄ™?
+	this->box.cfp.x = this->pos.x + objLength;		// uwzglêdniæ rotacjê?
 	this->box.cfp.y = this->pos.y + objWidth;
 	this->box.cfl.x = this->pos.x + objLength;
 	this->box.cfl.y = this->pos.y - objWidth;
@@ -84,7 +84,7 @@ GraphicObject GraphicObject::operator=(const GraphicObject &rhs)
 	this->Color[2] = rhs.Color[2];
 	this->Color[3] = rhs.Color[3];
 	this->Color[4] = rhs.Color[4];
-	
+
 	this->OBJnormals = rhs.OBJnormals;
 	this->OBJuvs = rhs.OBJuvs;
 	this->OBJvertices = rhs.OBJvertices;
@@ -94,7 +94,7 @@ GraphicObject GraphicObject::operator=(const GraphicObject &rhs)
 	this->pos.z = rhs.pos.z;
 
 	this->box.fp = rhs.box.fp;		// this->box.fp.x = rhs.box.fp.x;	(...) ?
-	this->box.fl = rhs.box.fl; 
+	this->box.fl = rhs.box.fl;
 	this->box.bp = rhs.box.bp;
 	this->box.bl = rhs.box.bl;
 
@@ -106,9 +106,8 @@ GraphicObject GraphicObject::operator=(const GraphicObject &rhs)
 	this->TotalConnectedTriangles;
 	this->uvIndices = rhs.uvIndices;
 	this->normalIndices = rhs.normalIndices;
-	
-	this->vertexIndices = rhs.vertexIndices;
 
+	this->vertexIndices = rhs.vertexIndices;
 	return *this;
 }
 
@@ -200,7 +199,8 @@ bool GraphicObject::loadOBJ(const char * path, const char * texturePath)
 
 	printf(".OBJ file opened successfully.\n");
 	//if(loadTexture(texturePath))
-		printf("Texture opened successfully.\n");
+
+	printf("Texture opened successfully.\n");
 	return true;
 }
 
@@ -217,14 +217,14 @@ bool GraphicObject::loadTexture(const char* path) {
 
 	// Open the file
 	FILE * file = fopen(path, "rb");
-	if (!file) 
+	if (!file)
 	{
 		printf("BMP file is not correct!\n");
 		return false;
 	}
 
 	if (fread(header, 1, 54, file) != 54)
-	{ 
+	{
 		printf("BMP file is not correct!\n");
 		return false;
 	}
@@ -277,7 +277,7 @@ void GraphicObject::rotateBoundingBox(float angle)
 	//float flArc = 360 - fpArc;
 	//float blArc = 180 + fpArc;
 
-	//float fpAngle = this->box.currentRotation + fpArc + 90 - angle;		// kÄ…t obrotu dla prawej strony (arcsin() dodatni)
+	//float fpAngle = this->box.currentRotation + fpArc + 90 - angle;		// k¹t obrotu dla prawej strony (arcsin() dodatni)
 	//if (((fpAngle <= 90.0) && (fpAngle >= -90)) || ((fpAngle >= 270) && (fpAngle <= 360)) || ((fpAngle <= -270) && (fpAngle >= -360)))
 	//{
 	//	this->box.fp.x = pos.x + box.cRadius * glm::cos(fpAngle);
@@ -356,7 +356,7 @@ void GraphicObject::Draw()
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
 	// Draw the triangle !
-	glDrawArrays(GL_TRIANGLES, 0, this->TotalConnectedTriangles*3); // Starting from vertex 0; 3 vertices total -> 1 triangle
+	glDrawArrays(GL_TRIANGLES, 0, this->TotalConnectedTriangles * 3); // Starting from vertex 0; 3 vertices total -> 1 triangle
 
 	glDisableVertexAttribArray(0);
 

@@ -10,19 +10,20 @@ RendController::~RendController()
 {
 }
 
-void RendController::setObject(GraphicObject *o)
+void RendController::setObject(std::list<GraphicObject> *o)
 {
 	renderer = new Renderer(o);
 }
 
-void RendController::init(GraphicObject *o)
+void RendController::init(std::list<GraphicObject> *o)
 {
 	setObject(o);
 	renderer->init();
 
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);			// Display Mode
 	glutInitWindowSize(renderer->win.width, renderer->win.height);		// set window size
-	glutCreateWindow(renderer->win.title);				
+	glutCreateWindow(renderer->win.title);
+
 	// create Window
 	glewExperimental = GL_TRUE;			// TESTING
 	glewInit();
@@ -59,7 +60,7 @@ void RendController::init(GraphicObject *o)
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_COLOR_MATERIAL);
-	
+
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
 	glEnable(GL_NORMALIZE);
@@ -67,7 +68,7 @@ void RendController::init(GraphicObject *o)
 	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, 1);
 	glDepthFunc(GL_LEQUAL);
 
-	renderer->plain->SetDisplay();
+	renderer->GetPlain()->SetDisplay();
 }
 
 void RendController::display()
@@ -92,10 +93,10 @@ void RendController::specialKeys(int key, int x, int y)
 void RendController::mouse(int button, int state, int x, int y)
 {
 	renderer->mouse(button, state, x, y);
-	/*	
-		button:	GLUT_LEFT_BUTTON, GLUT_MIDDLE_BUTTON, GLUT_RIGHT_BUTTON
-		state:	GLUT_DOWN, GLUT_UP
-		x, y:
+	/*
+	button:	GLUT_LEFT_BUTTON, GLUT_MIDDLE_BUTTON, GLUT_RIGHT_BUTTON
+	state:	GLUT_DOWN, GLUT_UP
+	x, y:
 	*/
 }
 

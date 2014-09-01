@@ -4,40 +4,41 @@ using namespace glm;
 
 Renderer::Renderer() : window(NULL)
 {
-	this->win.width = 1024;
-	this->win.height = 480;
-	this->win.title = "CrimeanCrisis BETA";
-	this->win.field_of_view_angle = 45;
-	this->win.z_near = 0.0f;
-	this->win.z_far = 1500.0f;				// 1500f
 
-	plain = new GraphicObject();
-	plain->loadOBJ("models/plain.obj", "grafiki/tex1.bmp");
 }
 
-Renderer::Renderer(GraphicObject *o) 
+Renderer::Renderer(std::list<GraphicObject> *o)
 {
-	this->win.width = 1024;
-	this->win.height = 480;
-	this->win.title = "CrimeanCrisis BETA";
-	this->win.field_of_view_angle = 45;
-	this->win.z_near = 0.0f;
-	this->win.z_far = 1500.0f;
-	obj = o;		//przeciążyć operator
-	plain = new GraphicObject();
-	plain->loadOBJ("models/plain.obj", "grafiki/tex1.bmp");
+	objList = o;		//przeciążyć operator
 }
 
 Renderer::~Renderer()
 {
+	delete sun;
+	delete gameUI;
+	delete mainMenu;
+	delete serverMenu;
 }
 
 void Renderer::updateWindow()
 {
 	glutSwapBuffers();
 }
+
 void Renderer::init()
 {
+	// EKRAN STARTOWY
+	this->screen = Screen::ServerMenuScreen;
+
+	this->win.width = 1024;
+	this->win.height = 640;
+	this->win.title = "CrimeanCrisis BETA";
+	this->win.field_of_view_angle = 45;
+	this->win.z_near = 0.0f;
+	this->win.z_far = 1500.0f;
+	plain = new GraphicObject();
+	plain->loadOBJ("models/plain.obj", "grafiki/tex1.bmp");
+
 	leftParam = rightParam = topParam = bottomParam = CUT_PARAM;
 	nearParam = 15.0;
 	farParam = 200.0;
@@ -47,87 +48,122 @@ void Renderer::init()
 	this->cam.z = 25.0;
 	this->dir.x = this->dir.y = this->dir.z = 0;
 
-	teapot.x = 0.0;
-	teapot.y = 3.5;
-	teapot.z = 10.0;
-	teapotColor[0] = 0.75;
-	teapotColor[1] = 1.0;
-	teapotColor[2] = 0.65;
-	teapotColor[4] = 1.0;
-	teapotAngle = 0.0;
-	teapotDir = false;
+	mousePressed = false;
 
-	ambient[0] = 0.850000;
-	ambient[1] = 0.207250;
-	ambient[2] = 0.207250;
-	ambient[4] = 0.922000;
-
-	diffuse[0] = 1.000000;
-	diffuse[1] = 0.829000;
-	diffuse[2] = 0.829000;
-	diffuse[3] = 0.922000;
-
-	specular[0] = 0.996648;
-	specular[1] = 0.096648;
-	specular[2] = 0.096648;
-	specular[3] = 0.999000;
-
-	shininess = 10;
-
-	// light1
-	Vector lightPos(-20, 18, 3), lightDir(0, -1, 0);
+	// sloneczko
+	Vector lightPos(0, 70, 0), lightDir(0, -1, 0);
 	float att[3] = { 1.5, 0, 0 };
-	light1 = new Light(0, lightPos, lightDir, att, 180, 0);	
+	sun = new Light(0, lightPos, lightDir, att, 80, 0);
+	// deszcz
+	isRaining = false;
+	// UI
+	gameUI = new GameUI(win.width, win.height);
+	mainMenu = new MainMenu();
+	serverMenu = new ServerMenu(win.width, win.height);
 
 	x1 = x2 = y1 = y2 = 0;
 }
 
 void Renderer::display()
-{	
+{
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	switch (screen)
+	{
+	case MainMenuScreen:
+		this->displayMainMenuScreen();
+		break;
+
+	case ServerMenuScreen:
+		this->displayServerMenuScreen();
+		break;
+
+	case GameScreen:
+		this->displayGameScreen();
+		break;
+	}
+
+	glutSwapBuffers();
+}
+
+void Renderer::displayMainMenuScreen()
+{
+	set2D(this->win.width, this->win.height);
+
+	mainMenu->drawMainMenu();
+}
+
+void Renderer::displayServerMenuScreen()
+{
+	set2D(this->win.width, this->win.height);
+
+	serverMenu->drawServerMenu();
+}
+
+void Renderer::displayGameScreen()
+{
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	gluLookAt(cam.x, cam.y, cam.z, dir.x, dir.y, dir.z, 0.0, 1.0, 0.0);
-	drawBulb(*light1);
-	setLight(*light1);
-	glColor3f(1.0, 1.0, 0.7);
-	glTranslatef(-3.0, 2.0, 10.0);
+
+	set3D(this->win.width, this->win.height);
+
+	// sloneczko
+	setLight(*sun);
+	drawBulb(*sun); // to sie wytnie
 
 	glPopMatrix();
 	glPushMatrix();
 	plain->Draw();		// rysuj mapę
-	obj->Draw();		// rysuj jednostki
+
+	std::list<GraphicObject>::iterator iter;	// rysuj jednostki
+	for (iter = objList->begin(); iter != objList->end(); ++iter) {
+		iter->Draw();
+	}
+		
 	glPopMatrix();
-	glutSwapBuffers();
+
+	if (isRaining)
+	{
+		rain->displayRain();
+	}
+
+	// elementy pomocnicze
+	glColor3f(1, 0, 0);
+	glBegin(GL_LINES);
+	glVertex3f(0, 11, 0);
+	glVertex3f(100, 11, 0);
+	glEnd();
+
+	glColor3f(0, 0, 1);
+	glBegin(GL_LINES);
+	glVertex3f(0, 11, 0);
+	glVertex3f(0, 11, 100);
+	glEnd();
+
+	// RYSOWANIE UI
+	set2D(this->win.width, this->win.height);
+
+	gameUI->drawUI();
 }
 
 void Renderer::animate()
 {
+	if (isRaining)
+	{
+		rain->emitParticles();
+		rain->affectParticles();
+	}
+
 	glutPostRedisplay();
 }
 
 void Renderer::keyboard(unsigned char key, int x, int y)
 {
-	float* p;
 	float yChange = 1;
 
 	switch (key) {
-	case '1':
-		//light1->setCutoff(light1->getCutoff() + 5);
-		break;
-	case '2':
-		//light1->setCutoff(light1->getCutoff() - 5);
-		break;
-	case 'q':
-		//p = light1->getPos();
-		//p[0] += 1;
-		//light1->setPos(p);
-		break;
-	case 'a':
-		//p = light1->getPos();
-		//p[0] -= 1;
-		//light1->setPos(p);
-		break;
 	case 'w':
 		cam.y -= 0.5;
 		dir.y -= 0.5;
@@ -135,83 +171,73 @@ void Renderer::keyboard(unsigned char key, int x, int y)
 	case 's':
 		cam.y += 0.5;
 		dir.y += 0.5;
-		//p = light1->getPos();
-		//p[1] -= 1;
-		//light1->setPos(p);
 		break;
-	case 'e':
-		//p = light1->getPos();
-		//p[2] += 1;
-		//light1->setPos(p);
-		break;
-	case 'd':
-		//p = light1->getPos();
-		//p[2] -= 1;
-		//light1->setPos(p);
-		break;
-	case 'r':
-		//light1->modifyExponent(0.33);
-		break;
-	case 'f':
-		//light1->modifyExponent(-0.33);
-		break;
-	case 'u':
-		//light1->modifyAttenuation(2, 0.03);
+	/*case 'u':
 		obj->rot.x += 2.0;
 		break;
 	case 'o':
-		//light1->modifyAttenuation(2, 0.03);
 		obj->rot.x -= 2.0;
 		break;
 	case 'y':
-		//light1->modifyAttenuation(2, 0.03);
 		obj->rot.y += 2.0;
 		break;
 	case 'h':
-		//light1->modifyAttenuation(2, 0.03);
 		obj->rot.y -= 2.0;
 		break;
 	case 't':
-		//light1->modifyAttenuation(2, 0.03);
 		obj->rot.z += 2.0;
 		break;
 	case 'g':
-		//light1->modifyAttenuation(2, 0.03);
 		obj->rot.z -= 2.0;
 		break;
 	case 'j':
-		//light1->modifyAttenuation(2, -0.03);
 		obj->pos.x -= 1.0;
 		break;
 	case 'l':
-		//light1->modifyAttenuation(2, -0.03);
 		obj->pos.x += 1.0;
 		break;
 	case 'i':
-		//light1->modifyAttenuation(2, -0.03);
 		obj->pos.z -= 1.0;
 		break;
 	case 'k':
-		//light1->modifyAttenuation(2, -0.03);
 		obj->pos.z += 1.0;
-		break;
+		break;*/
 	case KEY_ESCAPE:
 		exit(0);
 		break;
-	case ' ':
-		//cam.z += 1.0;
+
+	// Rain
+	case 'r':
+	case 'R':
+		if (isRaining)
+		{
+			delete rain;
+			isRaining = false;
+		}
+		else
+		{
+			rain = new Rain();
+			isRaining = true;
+		}
 		break;
+
+	// Camera zoom
 	case '-':
 		if (cam.y < 100) {
-			cam.x = (cam.y + yChange) * cam.x / cam.y;
-			cam.z = (cam.y + yChange) * cam.z / cam.y;
+			float deltaX = cam.x - dir.x;
+			float deltaZ = cam.z - dir.z;
+			cam.x = (cam.y + yChange) * deltaX / cam.y;
+			cam.z = (cam.y + yChange) * deltaZ / cam.y;
 			cam.y += yChange;
 		}
 		break;
 	case '+':
+	case '=':
 		if (cam.y > 25) {
-			cam.x = (cam.y - yChange) * cam.x / cam.y;
-			cam.z = (cam.y - yChange) * cam.z / cam.y;
+			float deltaX = cam.x - dir.x;
+			float deltaZ = cam.z - dir.z;
+			cam.x = (cam.y - yChange) * deltaX / cam.y;
+			cam.z = (cam.y - yChange) * deltaZ / cam.y;
 			cam.y -= yChange;
 		}
 		break;
@@ -220,7 +246,6 @@ void Renderer::keyboard(unsigned char key, int x, int y)
 
 void Renderer::specialKeys(int key, int x, int y)
 {
-
 	float move = 2.5;
 
 	switch (key)
@@ -228,29 +253,81 @@ void Renderer::specialKeys(int key, int x, int y)
 	case GLUT_KEY_RIGHT:
 		cam.x += move;
 		dir.x += move;
-		//teapot.x += move;
+		cam.z -= move;
+		dir.z -= move;
 		break;
 	case GLUT_KEY_LEFT:
 		cam.x -= move;
 		dir.x -= move;
-		//teapot.x -= move;
-		break;
-	case GLUT_KEY_UP:
-		cam.z -= move;
-		dir.z -= move;
-		//teapot.z -= move / 2;
-		break;
-	case GLUT_KEY_DOWN:
 		cam.z += move;
 		dir.z += move;
-		//teapot.z += move / 2;
+		break;
+	case GLUT_KEY_UP:
+		cam.x -= move;
+		dir.x -= move;
+		cam.z -= move;
+		dir.z -= move;
+		break;
+	case GLUT_KEY_DOWN:
+		cam.x += move;
+		dir.x += move;
+		cam.z += move;
+		dir.z += move;
 		break;
 	}
 }
 
 void Renderer::mouse(int button, int state, int x, int y)
 {
+	ClickResult result = ClickResult::NoneResult;
+	ServerProperties * serverProperties = new ServerProperties; 
+	strcpy_s(serverProperties->host, "");
+	strcpy_s(serverProperties->port, "");
 
+
+	switch (screen)
+	{
+	case MainMenuScreen:
+		result = mainMenu->whatIsClicked(x, win.height - y);
+		break;
+
+	case ServerMenuScreen:
+		result = serverMenu->whatIsClicked(x, win.height - y, serverProperties);
+		break;
+
+	case GameScreen:
+		result = gameUI->whatIsClicked(x, win.height - y);
+		break;
+	}
+	
+	if (result != ClickResult::NoneResult && state == GLUT_DOWN)
+	{
+		switch (result)
+		{
+		case Multiplayer:
+			screen = Screen::ServerMenuScreen;
+			break;
+
+		case SelectServer:
+			// TODO: 
+			// mamy juz dane servera (moga byc puste, jesli nie wybrano)
+			screen = Screen::GameScreen;
+			break;	
+
+		case Back:
+			screen = Screen::MainMenuScreen;
+			break;
+
+		case Quit:
+			exit(0);
+			break;
+		}
+		return;
+	}
+
+
+	// UWAGA, PROGRAM TU NIE WEJDZIE JESLI KLIKNIEMY W UI
+	// SPRAWDZIC CZY JESTESMY W GAME SCREEN
 	switch (button)
 		//case GLUT_LEFT_BUTTON:
 		//	if (state == GLUT_DOWN)			// TEST
@@ -258,47 +335,65 @@ void Renderer::mouse(int button, int state, int x, int y)
 		//	else if (state == GLUT_UP)
 		//		printf("Clock!");
 		case GLUT_LEFT_BUTTON:
-		{
-			// TODO
-			// znacznik bool selected
+	{
+		// TODO
+		// znacznik bool selected
 
-			if (state == GLUT_DOWN)		// pobranie początkowych współrzędnych
-			{
-				x1 = x;
-				y1 = y;
-			}
-			if (state == GLUT_UP)		// pobranie końcowych współrzędnych i ray casting + konwersja ze współrzędnych kursora do mapy
-			{
-				x2 = x;
-				y2 = y;
-			}
-			printf("X1 coordinate: %d\nY1 coordinate: %d\n\n", x1, y1);
-			printf("X2 coordinate: %d\nY2 coordinate: %d\n\n", x2, y2);
+		if (state == GLUT_DOWN)		// pobranie początkowych współrzędnych
+		{
+			x1 = x;
+			y1 = y;
 		}
+		if (state == GLUT_UP)		// pobranie końcowych współrzędnych i ray casting + konwersja ze współrzędnych kursora do mapy
+		{
+			x2 = x;
+			y2 = y;
+		}
+		printf("X1 coordinate: %d\nY1 coordinate: %d\n\n", x1, y1);
+		printf("X2 coordinate: %d\nY2 coordinate: %d\n\n", x2, y2);
+	}
 }
 
-void Renderer::resize(int w, int h) 
+void Renderer::resize(int w, int h)
 {
 	// Set viewport size to be entire OpenGL window.
 	glViewport(0, 0, w, h);
+	set3D(w, h);
+	this->win.width = gameUI->width = w;
+	this->win.height = gameUI->height = h;
+}
 
+void Renderer::set3D(int w, int h)
+{
 	// Set matrix mode to projection.
 	glMatrixMode(GL_PROJECTION);
-
 	// Clear current projection matrix to identity.
 	glLoadIdentity();
-
-	// wysokoœæ okna wiêksza od wysokoœci okna
+	// wysokosc okna wiêksza od wysokosci okna
 	if (w < h && w > 0) {
 		glFrustum(-leftParam, rightParam, -bottomParam * h / w, topParam * h / w, nearParam, farParam);
 	}
 	else {
-
-		// szerokoœæ okna wiêksza lub równa wysokoœci okna
+		// szerokosc okna wiêksza lub równa wysokosci okna
 		if (w >= h && h > 0) {
 			glFrustum(-leftParam * w / h, rightParam * w / h, -bottomParam, topParam, nearParam, farParam);
 		}
 	}
+	glEnable(GL_LIGHT0);
+}
+
+void Renderer::set2D(int w, int h)
+{
+	glMatrixMode(GL_PROJECTION);
+	// Clear current projection matrix to identity.
+	glLoadIdentity();
+	// Specify the orthographic projection, 
+	glOrtho(0, w, 0, h, 0, 1);
+	// Set matrix mode to modelview.
+	glMatrixMode(GL_MODELVIEW);
+	// Clear current modelview matrix to identity.
+	glLoadIdentity();
+	glDisable(GL_LIGHT0);
 }
 
 void Renderer::defaultMaterial() {
@@ -308,6 +403,7 @@ void Renderer::defaultMaterial() {
 	GLfloat defaultShininess = 0;
 	GLfloat defaultEmission[] = { 0, 0, 0, 1 };
 
+>>>>>>> d175017a0f84bf6dee2c2a67cc10cf605b5b4451
 	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, defaultAmbient);
 	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, defaultDiffuse);
 	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, defaultSpecular);
@@ -332,7 +428,13 @@ void Renderer::drawBulb(Light light)
 
 void Renderer::setLight(Light light) {
 	GLenum number = GL_LIGHT0 + light.getNumber();
-	glLightfv(number, GL_POSITION, light.getPosVector());
+	Vector pos = light.getPos();
+	float tab[4];
+	tab[0] = pos.x;
+	tab[1] = pos.y;
+	tab[2] = pos.z;
+	tab[3] = 1;
+	glLightfv(number, GL_POSITION, tab);
 	glLightfv(number, GL_SPOT_DIRECTION, light.getDir());
 	glLightf(number, GL_SPOT_CUTOFF, light.getCutoff());
 	glLightf(number, GL_CONSTANT_ATTENUATION, light.getAttenuation(0));

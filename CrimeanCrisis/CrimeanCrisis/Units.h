@@ -3,60 +3,6 @@
 
 #include "Types.h"
 
-// Base class for objects
-class Unit {
-
-private:
-	Vector pos;
-	Color color;
-
-public:
-	Unit();
-	Unit(Vector pos);
-
-	Vector getPos();
-	void setPos();
-	void move(float x, float y, float z);
-};
-
-// Teapot class
-class Teapot : public Unit {
-
-private:
-	// Teapot size
-	float size;
-	// Material properties
-	float ambient[4], diffuse[4], specular[4], shininess;
-
-};
-
-// Plane class
-class Plane : public Unit {
-
-public:
-	static enum PlaneType
-	{
-		WALL, PARTITION_WALL, FLOOR
-	};
-
-private:
-	// Dimension
-	float w, h;
-	// Normal vector
-	Vector N;
-	// Type of plane
-	PlaneType type;
-
-	// Calculates normal vector
-	void CalcNormalVector();
-
-public:
-	Plane();
-	Plane(PlaneType type, Vector pos, float w, float h);
-
-
-};
-
 // Class representing OpenGL light settings
 class Light {
 private:
@@ -81,7 +27,6 @@ public:
 
 	int getNumber();
 	Vector getPos();
-	float* getPosVector();
 	Vector getDir();
 	float getAttenuation(int i);
 	float getCutoff();

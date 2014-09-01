@@ -3,24 +3,21 @@
 #define _CRT_SECURE_NO_WARNINGS
 #define POINTS_PER_VERTEX 3
 #define TOTAL_FLOATS_IN_TRIANGLE 9
+#define KEY_ESCAPE 27
+//#define GLEW_STATIC
 
 //STARE
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include <windows.h>
+#include <iostream>
 #include <vector>
 #include "lib/GL/glew.h"
 #include "lib/GLFW/glfw3.h"
 #include "lib/glm/glm.hpp"
 #include "lib/glm/gtc/matrix_transform.hpp"
-#include "lib/GL/gl.h"
-#include "lib/GL/glu.h"
-#include "lib/GL/glut.h"
 #include "Types.h"
-
-#define KEY_ESCAPE 27
 
 using namespace glm;
 using namespace std;
@@ -28,13 +25,12 @@ using namespace std;
 class GraphicObject
 {
 public:
+	typedef struct
+	{
+		float x, y;
+	}	point2d;
 
-	typedef struct					
-	{								
-		float x, y;								
-	}	point2d;				
-
-	typedef struct					
+	typedef struct
 	{								//	cfl │ cfp	(front)
 		point2d fl, fp;				//	 ┌──┼──┐	cfp, cfl, cbl, cbp - const (starting rotation, but location must be updated)
 		point2d bl, bp;				//	 ║┌─┴─┐║
@@ -42,8 +38,7 @@ public:
 		point2d cbl, cbp;			//	 ║└───┘║
 		float currentRotation;		//   └─────┘
 		float cRadius;				//  cbl   cbp	(back)
-	}	boundingBox;				
-									
+	}	boundingBox;
 
 	GraphicObject();
 	GraphicObject(Vector p, Vector r, int l, int w);
@@ -66,11 +61,11 @@ private:
 	vector< glm::vec3 > OBJvertices;
 	vector< glm::vec2 > OBJuvs;
 	vector< glm::vec3 > OBJnormals;
-	
+
 	float Color[4];
 	long TotalConnectedPoints;				// Stores the total number of connected verteces
 	long TotalConnectedTriangles;			// Stores the total number of connected triangles
-	
+
 	int objWidth, objLength;
 	boundingBox box;
 };

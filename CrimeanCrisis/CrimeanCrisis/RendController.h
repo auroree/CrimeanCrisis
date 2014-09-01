@@ -23,13 +23,13 @@ public:
 
 	static void updateWindow();
 
-	static void init(GraphicObject*);
+	static void init(std::list<GraphicObject>*);
 	static void display();
 	static void animate(int);
 	static void keyboard(unsigned char, int, int);
 	static void specialKeys(int, int, int);
 	static void mouse(int, int, int, int);
-	static void setObject(GraphicObject*);
+	static void setObject(std::list<GraphicObject>*);
 	static void resize(int, int);
 
 	static glutWindow win;

@@ -36,8 +36,8 @@ int GameServer::Start()	//to bêdzie jedyna uruchomiona funkcja serwera
 	sockaddr_in service;
 	memset(&service, 0, sizeof(service));
 	service.sin_family = AF_INET;
-	service.sin_addr.s_addr = inet_addr("127.0.0.1");
-	service.sin_port = htons(27015);
+	//service.sin_addr.s_addr = inet_addr("127.0.0.1");
+	//service.sin_port = htons(27015);
 	//koniec ustalania IP
 
 	if (bind(mainSocket, (SOCKADDR *)& service, sizeof(service)) == SOCKET_ERROR)

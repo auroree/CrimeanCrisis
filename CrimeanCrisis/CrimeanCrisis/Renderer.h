@@ -1,6 +1,7 @@
 #pragma once
 
 #define _CRT_SECURE_NO_WARNINGS
+#define CUT_PARAM 10.0f
 //#define GLEW_STATIC
 
 #include <stdio.h>
@@ -14,21 +15,77 @@
 #include "lib/GL/glut.h"
 #include "lib/glm/glm.hpp"
 #include "lib/glm/gtc/matrix_transform.hpp"
+#include "GraphicObject.h"
+#include "Types.h"
+#include "Units.h"
+#include "Rain.h"
+#include "UI.h"
 
-
-//#pragma comment(lib, "glew32.lib")
-//#pragma comment(lib, "opengl32.lib")
 
 class Renderer
 {
 public:
 	Renderer();
+	Renderer(std::list<GraphicObject>*);
 	~Renderer();
 
-	bool createWindow();
+	typedef struct
+	{
+		int width;
+		int height;
+		char* title;
+
+		float field_of_view_angle;
+		float z_near;
+		float z_far;
+	}	glutWindow;			// okno
+
 	void updateWindow();
 
+	void init();
+	void display();
+	void keyboard(unsigned char, int, int);
+	void specialKeys(int, int, int);
+	void mouse(int, int, int, int);
+	void resize(int, int);
+	void animate();
+
+	void set3D(int w, int h);
+	void set2D(int w, int h);
+
+	void defaultMaterial();
+	void drawBulb(Light light);
+	void setLight(Light light);
+
+	//accessors
+	GraphicObject* GetPlain() { return plain; }
+	bool IsRaining() { return isRaining; }
+
+	glutWindow win;
+	
+
 private:
+	int x1, x2, y1, y2;								// wspó³rzêdne kursora
+	int map_x1, map_x2, map_y1, map_y2;				// wspó³rzêdne na mapie
 	GLFWwindow *window;
+	Light* sun;
+	Rain* rain;	
+	float g_rotation;
+	std::list<GraphicObject> *objList;			// jednostka (lista jednostek)
+	GraphicObject *plain;		// mapa
+
+	Vector cam;					// po³o¿enie kamery
+	Vector dir;					// ukierunkowanie kamery
+
+	float nearParam, farParam,
+		leftParam, rightParam,
+		topParam, bottomParam;
+
+	GameUI* gameUI;
+
+	bool isRaining;
+
 };
+
+
 

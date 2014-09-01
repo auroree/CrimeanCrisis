@@ -6,6 +6,7 @@
 #include "Renderer.h"
 #include "GraphicObject.h"
 #include "Sound.h"
+#include "RendController.h"
 
 class Glowny_kontroler
 {
@@ -15,5 +16,8 @@ public:
 	void Start();
 
 private:
-	Sound *sound;
+	Sound *_sound;
+	Klient *_client;
+	GameServer *_server;
+	std::list<GraphicObject> *_objects;
 };

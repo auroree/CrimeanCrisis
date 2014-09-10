@@ -28,7 +28,7 @@ void Renderer::updateWindow()
 void Renderer::init()
 {
 	// EKRAN STARTOWY
-	this->screen = Screen::ServerMenuScreen;
+	this->screen = Screen::GameScreen;
 
 	this->win.width = 1024;
 	this->win.height = 640;
@@ -60,6 +60,9 @@ void Renderer::init()
 	gameUI = new GameUI(win.width, win.height);
 	mainMenu = new MainMenu();
 	serverMenu = new ServerMenu(win.width, win.height);
+
+	// FLAME TEST
+	flame1 = new Flame(0, 10, 0);
 
 	x1 = x2 = y1 = y2 = 0;
 }
@@ -142,6 +145,9 @@ void Renderer::displayGameScreen()
 	glVertex3f(0, 11, 100);
 	glEnd();
 
+	// FLAME TEST
+	flame1->displayFlame();
+
 	// RYSOWANIE UI
 	set2D(this->win.width, this->win.height);
 
@@ -155,6 +161,10 @@ void Renderer::animate()
 		rain->emitParticles();
 		rain->affectParticles();
 	}
+
+	// FLAME TEST
+	flame1->emitParticles();
+	flame1->affectParticles();
 
 	glutPostRedisplay();
 }

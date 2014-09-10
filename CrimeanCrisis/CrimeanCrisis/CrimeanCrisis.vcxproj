@@ -79,6 +79,7 @@
     <ClInclude Include="ClickResult.h" />
     <ClInclude Include="Communicator.h" />
     <ClInclude Include="Events.h" />
+    <ClInclude Include="Flame.h" />
     <ClInclude Include="GameServer.h" />
     <ClInclude Include="Glowny_kontroler.h" />
     <ClInclude Include="GraphicObject.h" />
@@ -88,6 +89,7 @@
     <ClInclude Include="LogicObject.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="MiniMap.h" />
+    <ClInclude Include="Particle.h" />
     <ClInclude Include="Picture.h" />
     <ClInclude Include="Rain.h" />
     <ClInclude Include="RendController.h" />
@@ -102,6 +104,7 @@
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Communicator.cpp" />
     <ClCompile Include="Events.cpp" />
+    <ClCompile Include="Flame.cpp" />
     <ClCompile Include="GameServer.cpp" />
     <ClCompile Include="Glowny_kontroler.cpp" />
     <ClCompile Include="GraphicObject.cpp" />
@@ -112,6 +115,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="MiniMap.cpp" />
+    <ClCompile Include="Particle.cpp" />
     <ClCompile Include="Picture.cpp" />
     <ClCompile Include="Rain.cpp" />
     <ClCompile Include="RendController.cpp" />

@@ -22,6 +22,7 @@
 #include "UI.h"
 #include "MainMenu.h"
 #include "ServerMenu.h"
+#include "Flame.h"
 
 enum Screen
 {
@@ -89,8 +90,9 @@ private:
 
 	bool mousePressed;
 
-	Light* sun;
-	Rain* rain;
+	Light * sun;
+	Rain * rain;
+	Flame * flame1;
 	GameUI * gameUI;
 	MainMenu * mainMenu;
 	ServerMenu * serverMenu;

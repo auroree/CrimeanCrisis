@@ -34,8 +34,8 @@ Flame::Flame(float x, float y, float z)
 	source.y = y;
 	source.z = z;
 
-	flameImg = ImageUtil::loadBmp("D:\\Dropbox\\GitHub\\CrimeanCrisis\\CrimeanCrisis\\Debug\\textures\\flame.bmp");
-	explosionImg = ImageUtil::loadBmp("D:\\Dropbox\\GitHub\\CrimeanCrisis\\CrimeanCrisis\\Debug\\textures\\explosion.bmp");
+	flameImg = ImageUtil::loadBmp("..\\Debug\\textures\\flame.bmp");
+	explosionImg = ImageUtil::loadBmp("..\\Debug\\textures\\explosion.bmp");
 }
 
 Flame::~Flame()

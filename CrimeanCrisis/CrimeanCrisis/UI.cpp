@@ -37,12 +37,12 @@ void GameUI::initButtons()
 {
 	// load button images
 	// nie wiem czemu nie dziala z wzgledna sciezka
-	Image * building = ImageUtil::loadBmp("D:\\Dropbox\\GitHub\\CrimeanCrisis\\CrimeanCrisis\\Debug\\ui\\building.bmp");
-	Image * army = ImageUtil::loadBmp("D:\\Dropbox\\GitHub\\CrimeanCrisis\\CrimeanCrisis\\Debug\\ui\\army.bmp");
-	Image * building1 = ImageUtil::loadBmp("D:\\Dropbox\\GitHub\\CrimeanCrisis\\CrimeanCrisis\\Debug\\ui\\building1.bmp");
-	Image * army1 = ImageUtil::loadBmp("D:\\Dropbox\\GitHub\\CrimeanCrisis\\CrimeanCrisis\\Debug\\ui\\army1.bmp");
-	Image * building2 = ImageUtil::loadBmp("D:\\Dropbox\\GitHub\\CrimeanCrisis\\CrimeanCrisis\\Debug\\ui\\building2.bmp");
-	Image * army2 = ImageUtil::loadBmp("D:\\Dropbox\\GitHub\\CrimeanCrisis\\CrimeanCrisis\\Debug\\ui\\army2.bmp");
+	Image * building = ImageUtil::loadBmp("..\\Debug\\ui\\building.bmp");
+	Image * army = ImageUtil::loadBmp("..\\Debug\\ui\\army.bmp");
+	Image * building1 = ImageUtil::loadBmp("..\\Debug\\ui\\building1.bmp");
+	Image * army1 = ImageUtil::loadBmp("..\\Debug\\ui\\army1.bmp");
+	Image * building2 = ImageUtil::loadBmp("..\\Debug\\ui\\building2.bmp");
+	Image * army2 = ImageUtil::loadBmp("..\\Debug\\ui\\army2.bmp");
 
 	// buttons
 	Color font(0, 0, 0, 1);

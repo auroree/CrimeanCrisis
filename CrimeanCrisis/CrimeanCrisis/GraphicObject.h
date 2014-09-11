@@ -55,6 +55,8 @@ public:
 	Vector pos;
 	Vector rot;
 
+	float Color[4];		// dla celów testowych !!!
+
 private:
 	GLuint VertexArrayID, vertexbuffer;
 	vector< unsigned int > vertexIndices, uvIndices, normalIndices;
@@ -62,7 +64,7 @@ private:
 	vector< glm::vec2 > OBJuvs;
 	vector< glm::vec3 > OBJnormals;
 
-	float Color[4];
+	
 	long TotalConnectedPoints;				// Stores the total number of connected verteces
 	long TotalConnectedTriangles;			// Stores the total number of connected triangles
 

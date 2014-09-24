@@ -6,6 +6,7 @@
 #define KEY_ESCAPE 27
 //#define GLEW_STATIC
 
+//STARE
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -24,7 +25,6 @@ using namespace std;
 class GraphicObject
 {
 public:
-
 	typedef struct
 	{
 		float x, y;
@@ -39,7 +39,6 @@ public:
 		float currentRotation;		//   └─────┘
 		float cRadius;				//  cbl   cbp	(back)
 	}	boundingBox;
-
 
 	GraphicObject();
 	GraphicObject(Vector p, Vector r, int l, int w);
@@ -56,6 +55,8 @@ public:
 	Vector pos;
 	Vector rot;
 
+	float Color[4];		// dla celów testowych !!!
+
 private:
 	GLuint VertexArrayID, vertexbuffer;
 	vector< unsigned int > vertexIndices, uvIndices, normalIndices;
@@ -63,7 +64,7 @@ private:
 	vector< glm::vec2 > OBJuvs;
 	vector< glm::vec3 > OBJnormals;
 
-	float Color[4];
+	
 	long TotalConnectedPoints;				// Stores the total number of connected verteces
 	long TotalConnectedTriangles;			// Stores the total number of connected triangles
 

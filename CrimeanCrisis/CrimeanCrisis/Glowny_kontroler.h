@@ -4,6 +4,7 @@
 #include "GameServer.h"
 #include "Picture.h"
 #include "Renderer.h"
+#include "RendController.h"
 #include "GraphicObject.h"
 #include "Sound.h"
 #include "RendController.h"

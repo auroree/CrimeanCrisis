@@ -1,5 +1,4 @@
 #include "Units.h"
-
 // --- LIGHT
 
 void Light::initAttenuation() {

@@ -1,11 +1,10 @@
-#include "Glowny_kontroler.h"
-
+ï»¿#include "Glowny_kontroler.h"
 //#undef main
 int wmain(int argc, char *argv[])
 {
 	glutInit(&argc, argv);
 
 	Glowny_kontroler kontroler;
-	kontroler.Start();		//tu jest g³ówna pêtla gry
+	kontroler.Start();						// tu jest gÅ‚Ã³wna pÄ™tla gry
 	return 0;
 }

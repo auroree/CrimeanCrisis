@@ -2,8 +2,8 @@
 #define _TYPES_H_
 
 #include <Windows.h>
+#include <math.h>
 #include "lib/GL/GL.h"
-
 // Structure representing point or vector in 3D space
 class Vector
 {
@@ -18,6 +18,15 @@ public:
 
 	float dot(Vector arg);
 	Vector cross(Vector arg);
+
+	void add(Vector a);
+	void sub(Vector a);
+	void set(Vector a);
+	void normalize();
+	void scale(float s);
+	void crossAndAssign(Vector a, Vector b);
+	void subAndAssign(Vector a, Vector b);	
+	float l2norm();
 };
 
 // Structure representing RGB/RGBA color

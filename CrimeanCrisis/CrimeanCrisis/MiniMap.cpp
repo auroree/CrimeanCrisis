@@ -6,7 +6,7 @@ MiniMap::MiniMap()
 	this->size = 120;
 }
 
-MiniMap::MiniMap(Color mapBg, float size)
+MiniMap::MiniMap(Color mapBg, int size)
 {
 	this->mapBg = mapBg;
 	this->size = size;

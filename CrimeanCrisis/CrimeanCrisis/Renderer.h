@@ -63,7 +63,6 @@ public:
 	void set2D(int w, int h);
 
 	void defaultMaterial();
-	void drawBulb(Light light);
 	void setLight(Light light);
 
 	//accessors
@@ -87,8 +86,6 @@ private:
 	float nearParam, farParam,
 		leftParam, rightParam,
 		topParam, bottomParam;
-
-	bool mousePressed;
 
 	Light * sun;
 	Rain * rain;

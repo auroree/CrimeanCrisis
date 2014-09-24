@@ -1,63 +1,6 @@
 #include "Units.h"
 
 // --- LIGHT
-
-void Light::initAttenuation() {
-	attenuation[0] = 1;
-	attenuation[1] = attenuation[2] = 0;
-}
-
-void Light::initCutoff() {
-	cutoff = 180;
-}
-
-void Light::initExponent() {
-	exponent = 0;
-}
-
-Light::Light() {
-	initAttenuation();
-	initCutoff();
-	initExponent();
-}
-
-Light::Light(int number, Vector pos) {
-	setNumber(number);
-	this->pos = pos;
-	initAttenuation();
-	initCutoff();
-	initExponent();
-}
-
-Light::Light(int number, Vector pos, Vector dir) {
-	setNumber(number);
-	this->pos = pos;
-	this->dir = dir;
-	initAttenuation();
-	initCutoff();
-	initExponent();
-}
-
-Light::Light(int number, Vector pos, Vector dir, float* attenuation) {
-	setNumber(number);
-	this->pos = pos;
-	this->dir = dir;
-	setAttenuation(0, attenuation[0]);
-	setAttenuation(1, attenuation[1]);
-	setAttenuation(2, attenuation[2]);
-	initCutoff();
-	initExponent();
-}
-
-Light::Light(int number, Vector pos, Vector dir, float cutoff, float exponent) {
-	setNumber(number);
-	this->pos = pos;
-	this->dir = dir;
-	setCutoff(cutoff);
-	setExponent(exponent);
-	initAttenuation();
-}
-
 Light::Light(int number, Vector pos, Vector dir, float* attenuation, float cutoff, float exponent) {
 	setNumber(number);
 	this->pos = pos;
@@ -137,18 +80,4 @@ void Light::setExponent(float exponent) {
 	if (exponent >= 0) {
 		this->exponent = exponent;
 	}
-}
-
-void Light::modifyAttenuation(int mode, float attenuation) {
-	if (mode >= 0 && mode < 3) {
-		setAttenuation(mode, this->attenuation[mode] + attenuation);
-	}
-}
-
-void Light::modifyCutoff(float cutoff) {
-	setCutoff(this->cutoff + cutoff);
-}
-
-void Light::modifyExponent(float exponent) {
-	setExponent(this->exponent + exponent);
 }

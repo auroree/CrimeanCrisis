@@ -48,8 +48,6 @@ void Renderer::init()
 	this->cam.z = 25.0;
 	this->dir.x = this->dir.y = this->dir.z = 0;
 
-	mousePressed = false;
-
 	// sloneczko
 	Vector lightPos(0, 70, 0), lightDir(0, -1, 0);
 	float att[3] = { 1.5, 0, 0 };
@@ -114,7 +112,6 @@ void Renderer::displayGameScreen()
 
 	// sloneczko
 	setLight(*sun);
-	drawBulb(*sun); // to sie wytnie
 
 	glPopMatrix();
 	glPushMatrix();
@@ -418,21 +415,6 @@ void Renderer::defaultMaterial() {
 	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, defaultSpecular);
 	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, defaultShininess);
 	glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, defaultEmission);
-}
-
-void Renderer::drawBulb(Light light)
-{
-	float emission[] = { 0.9, 0.9, 0.8, 1 };
-	glMaterialfv(GL_FRONT, GL_EMISSION, emission);
-	glColor4f(1.0, 1.0, 0.8, 0.95);
-
-	glPushMatrix();
-	Vector pos = light.getPos();
-	glTranslatef(pos.x, pos.y, pos.z);
-	glutSolidSphere(0.7, 20, 20);
-	glPopMatrix();
-
-	defaultMaterial();
 }
 
 void Renderer::setLight(Light light) {

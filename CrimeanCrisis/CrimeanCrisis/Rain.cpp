@@ -25,6 +25,15 @@ Rain::Rain(float density, float speed)
 	srand(time(NULL));
 }
 
+Rain::~Rain()
+{
+	list<RainParticle>::iterator iter = particles.begin();
+	while (iter != particles.end())
+	{
+		iter = particles.erase(iter);
+	}
+}
+
 void Rain::emitParticles()
 {
 	for (int i = 0; i < density * area * area / 10; ++i)

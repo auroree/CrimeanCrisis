@@ -13,8 +13,7 @@ private:
 
 public:
 	MiniMap();
-	MiniMap(Color mapBg, float size);
-	void init();
+	MiniMap(Color mapBg, int size);
 	void drawMap();
 	void translateToMap(Vector point, float temp[]);
 };

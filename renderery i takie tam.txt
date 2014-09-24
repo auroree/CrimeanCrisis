@@ -1,0 +1,123 @@
+Renderer.h
+
+enum Screen
+{
+	MainMenuScreen,
+	ServerMenuScreen,
+	GameScreen
+};
+Typ wyliczeniowy oznaczaj¹cy aktualnie wyœwietlany ekran.
+
+class Renderer
+
+#TODO
+
+	typedef struct
+	{
+		int width;
+		int height;
+		char* title;
+
+		float field_of_view_angle;
+		float z_near;
+		float z_far;
+	}	glutWindow;	
+
+metody:
+publiczne:
+
+	Renderer();
+	Renderer(std::list<GraphicObject>*);
+	~Renderer();
+	
+	GraphicObject* GetPlain();
+
+#TODOEND
+
+	void updateWindow();
+	Odœwie¿a okno.
+
+	void init();
+	Inicjalizuje obiekty.
+
+	void display();
+	Rysuje scenê lub menu zale¿nie od aktualnie wybranego ekranu.
+
+	void keyboard(unsigned char, int, int);
+	Obs³uguje przyciski klawiatury.
+
+	void specialKeys(int, int, int);
+	Obs³uguje specjalne przyciski klawiatury.
+
+	void mouse(int, int, int, int);
+	Obs³uguje zdarzenia myszy.
+
+	void resize(int, int);
+	Obs³uguje zmianê rozmiaru okna.
+
+	void animate();
+	Wywo³uje animacje obiektów.
+
+	void set3D(int w, int h);
+	Zmienia tryb rysowania na 3D.
+
+	void set2D(int w, int h);
+	Zmienia tryb rysowania na 2D.
+
+	void defaultMaterial();
+	Ustawia domyœlne w³aœciwoœci materia³u.
+
+	void setLight(Light light);
+	Ustwia Ÿrod³o œwiat³a.
+
+	bool IsRaining();
+	Zwraca informacjê czy deszcz jest w³¹czony.
+
+prywatne:
+
+	void displayGameScreen();
+	Rysyje ekran gry i interfejs u¿ytkownika.
+
+	void displayMainMenuScreen();
+	Rysuje g³ówne menu.
+
+	void displayServerMenuScreen();
+	Rysuje menu wyboru serwera.
+
+pola:
+publiczne:
+	
+	glutWindow win;
+
+prywatne:
+
+#TODO
+	int x1, x2, y1, y2;								// wspó³rzêdne kursora
+	int map_x1, map_x2, map_y1, map_y2;				// wspó³rzêdne na mapie
+	GLFWwindow *window;
+	float g_rotation;
+	std::list<GraphicObject> *objList;			// jednostka (lista jednostek)
+	GraphicObject *plain;		// mapa
+
+#TODOEND
+
+	Screen screen - aktualnie wybrany ekran.
+	Vector cam - wspó³rzêdne kamery.
+	Vector dir - wspó³rzêdne kierunku kamery.
+
+	float nearParam, farParam,
+		leftParam, rightParam,
+		topParam, bottomParam - parametry bry³y obcinania.
+
+	Light * sun - obiekt œwiat³a reprezentuj¹cy s³oñce.
+	Rain * rain - obiekt deszczu.
+	Flame * flame1 - obiekt p³omienia.
+	GameUI * gameUI - obiekt interfejsu u¿ytkownika.
+	MainMenu * mainMenu - obiekt menu g³ównego.
+	ServerMenu * serverMenu - obiekt menu wyboru serwera.
+
+	bool isRaining - informacja czy deszcze jest w³¹czony.
+
+RendController.h
+
+CTRL+C CTRL+V

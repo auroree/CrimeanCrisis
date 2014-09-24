@@ -24,7 +24,7 @@ private:
 public:
 	Rain();
 	Rain(float density, float speed);
-	~Rain() {}
+	~Rain();
 	void emitParticles();
 	void affectParticles();
 	void displayRain();

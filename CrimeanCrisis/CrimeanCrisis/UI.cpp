@@ -21,6 +21,8 @@ GameUI::~GameUI()
 	{
 		delete buildingButtons[i];
 	}
+
+	delete map;
 }
 
 void GameUI::init()
@@ -36,7 +38,6 @@ void GameUI::init()
 void GameUI::initButtons()
 {
 	// load button images
-	// nie wiem czemu nie dziala z wzgledna sciezka
 	Image * building = ImageUtil::loadBmp("..\\Debug\\ui\\building.bmp");
 	Image * army = ImageUtil::loadBmp("..\\Debug\\ui\\army.bmp");
 	Image * building1 = ImageUtil::loadBmp("..\\Debug\\ui\\building1.bmp");

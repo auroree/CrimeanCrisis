@@ -40,7 +40,17 @@ Flame::Flame(float x, float y, float z)
 
 Flame::~Flame()
 {
+	list<Particle>::iterator iter = flameParticles.begin();
+	while (iter != flameParticles.end())
+	{
+		iter = flameParticles.erase(iter);
+	}
 
+	list<ExplosionParticle>::iterator exploIter = explosionParticles.begin();
+	while (exploIter != explosionParticles.end())
+	{
+		exploIter = explosionParticles.erase(exploIter);
+	}
 }
 
 void Flame::emitParticles()

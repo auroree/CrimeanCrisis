@@ -41,12 +41,12 @@ public:
 	GameUI(int w, int h);
 	~GameUI();
 
-	void initButtons();
 	void drawUI();
 	ClickResult whatIsClicked(int x, int y);
 
 private:
 	void init();
+	void initButtons();
 	void drawText(int x, int y, Color font, char text[]);
 	ClickResult isPanelClicked(int x, int y);
 };

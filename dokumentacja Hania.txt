@@ -1,0 +1,519 @@
+Button.h
+
+struct ButtonStyle
+{
+	int width;
+	int height;
+	Color font;
+	Color background;
+};
+
+Struktura przechowuj¹ca informacje o wygl¹dzie przycisku:
+- szerokoœæ
+- wysokoœæ
+- kolor czcionki
+- kolor t³a
+
+class Button
+
+pola:
+prywatne:
+
+	int locationX, locationY - wspó³rzêdne po³o¿enia przycisku na ekranie.
+	ButtonStyle style - informacje o wygl¹dzie przycisku.
+	char text[100] - napis pojawiajacy siê na przycisku, jeœli nie ma obrazka.
+	Image * image - obiekt przechowuj¹cy imformacje o bitmapie, która ma byæ wyœwietlona w miejscu przycisku.
+	ClickResult buttonType - identyfikator akcji, która powinna byæ wywolana po klikniêciu przycisku.
+
+metody:
+publiczne:
+
+	Button(char text[], Image * image, int locationX, int locationY, ButtonStyle style, ClickResult buttonType);
+	Konstruktor inicjalizuj¹cy pola wartoœciami podanymi w argumentach. 
+	
+	~Button();
+	Destruktor zwalniaj¹cy pamiêæ zajmowan¹ przez obrazek.
+	
+	void drawButton();
+	Rysuje przycisk na ekranie.
+	
+	ClickResult getButtonType();
+	Zwraca identyfikator akcji przypisany do przycisku.
+	
+	char * getText();
+	Zwraca tekst przycisku.
+	
+	void setStyle(ButtonStyle style);
+	Ustawia wygl¹d przycisku.
+	
+	bool isClicked(int x, int y);
+	Sprawdza czy podane wspó³rzêdne nale¿¹ do obszaru przycisku.
+	int x - wspó³rzêdna x kursora myszy.
+	int y - wspó³rzêdna y kursora myszy.
+
+prywatne:
+
+	void drawText();
+	Wypisuje tekst przycisku.
+	void drawImage();
+	Rysuje obrazek przycisku.
+
+ClickResult.h
+
+enum ClickResult
+Typ wyliczeniony zawieraj¹cy identyfikatory akcji zwiazane z klikniêciem przycisku.
+
+Flame.h
+
+class ExplosionParticle
+
+pola:
+publiczne:
+
+	Vector pos - aktualna pozycja cz¹steczki w przestrzeni 3D.
+	int timeToLive - pozosta³y czas ¿ycia cz¹steczki.
+
+prywatne:
+
+	Vector speed - prêdkoœæ przemieszczania siê cz¹steczki we wszystkich kierunkach w przestrzeni 3D.
+
+metody:
+publiczne:
+
+	ExplosionParticle(float x, float y, float z, float xSpd, float ySpd, float zSpd, int timeToLive);
+	Konstruktor przyjmuj¹cy jako parametry wspó³rzêdne pocz¹tkowe cz¹steczki, prêdkoœæ oraz czas ¿ycia.
+	float x, float y, float z - wspó³rzêdne pocz¹tkowe.
+	float xSpd, float ySpd, float zSpd - prêdkoœæ cz¹steczki.
+	int timeToLive - czas ¿ycia.
+
+	~ExplosionParticle();
+	Domyœlny destruktor.
+
+	void Move();
+	Zmienia aktualn¹ pozycjê czasteczki na podstawie jej prêdkoœci.
+
+class Flame
+
+pola:
+prywatne:
+
+	int explosionCounter - licznik czasu eksplozji.
+	int speed - prêdkoœæ przemieszczania siê cz¹steczek ognia.
+	int timeToLive - czas zycia cz¹steczek.
+	int particlesEmittedPerTick - iloœæ cz¹steczek emitowanych w ka¿dym cyklu.
+	Vector source - wspó³rzêdne Ÿród³a ognia.
+	Image * flameImg - obrazek cz¹steczki p³omienia.
+	Image * explosionImg; - obrazek cz¹steczki eksplozji.
+	std::list<Particle> flameParticles - lista cz¹steczek ognia.
+	std::list<ExplosionParticle> explosionParticles - lista cz¹steczek eksplozji.
+
+metody:
+publiczne:
+
+	Flame(float x, float y, float z);
+	Konstruktor przyjmuj¹cy wspó³rzêdne Ÿród³a ognia.
+
+	~Flame();
+	Destruktor zwalniaj¹cy listy cz¹steczek.
+
+	void emitParticles();
+	Emituje cz¹steczki.
+
+	void affectParticles();
+	Zmienia pozycje cz¹steczek i usuwa te, których czas zycia siê skoñczy³.
+
+	void displayFlame();
+	Wyœwietla ogieñ i eksplozjê.
+
+prywatne:
+
+	void emitExplosion();
+	Emituje cz¹steczki eksplozji.
+
+	void emitFlame();
+	Emituje cz¹steczki ognia.
+
+ImageUtil.h
+
+struct Image {
+	unsigned long sizeX;
+	unsigned long sizeY;
+	char *data;
+};
+Struktura przechowuj¹ca wysokoœæ i szerokoœæ obrazka oraz bitmapê.
+
+class ImageUtil
+
+metoty:
+publiczne:
+
+	static Image * loadBmp(char * filename);
+	Wczytuje obrazek w formacie bmp z dysku.
+	char * filename - Œcie¿ka lokalizacji pliku z obrazkiem.
+
+MainMenu.h
+
+class MainMenu
+
+pola:
+prywatne:
+
+	Button * buttons[BUTTONS_COUNT] - tablica przycisków menu.
+	
+metody:
+publiczne:
+ 
+	MainMenu();
+	Konstruktor inicjalizuj¹cy przyciski menu.
+
+	~MainMenu();
+	Desktruktor zwalniaj¹cy pamiêæ zajmowan¹ przez przyciski.
+
+	void drawMainMenu();
+	Rysuje wszystkie przyciski.
+
+	ClickResult whatIsClicked(int x, int y);
+	Zwraca identyfikator akcji klikniêtego przycisku lub wartoœæ NoneResult.
+	
+prywatne:
+
+	void init();
+	Inicjalizuje przyciski.
+
+MiniMap.h
+
+class MiniMap
+	 
+pola:
+prywatne:
+
+	Color mapBg - kolor t³a mapy.
+	int size - rozmiar mapy.
+
+metody:
+publiczne:
+
+	MiniMap();
+	Konstruktor wykorzystuj¹cy wartoœci domyœlne.
+
+	MiniMap(Color mapBg, int size);
+	Konstruktor przyjmuj¹cy kolor mapy oraz rozmiar.
+
+	void drawMap();
+	Rysuje mapê.
+
+	void translateToMap(Vector point, float temp[]);
+	T³umaczy wspó³rzêdne w przestrzeni 3D na wspó³rzêdne na mapie.
+	Vector point - wspó³rzêdne w przestrzeni.
+	float temp[] - wynikowe wspó³rzêdne na mapie.
+
+Particle.h
+
+class Particle
+
+pola:
+publiczne:
+
+	Vector pos - po³o¿enie cz¹steczki.
+	int timeToLive - pozosta³y czas ¿ycia cz¹steczki.
+
+	Particle(float x, float y, float z, int timeToLive);
+	Konstruktor przyjmuj¹cy wspó³rzêdne cz¹steczki i jej maksymalny czas ¿ycia.
+
+	~Particle();
+	Domyœlny destruktor.
+
+Rain.h
+
+class RainParticle
+
+pola:
+publiczne:
+
+	Vector pos - pozycja kropli deszczu.
+
+metody:
+publiczne:
+
+	RainParticle(float x, float y, float z);
+	Konstruktor przyjmuj¹cy wspó³rzêdne pocz¹tkowe cz¹steczki.
+
+	~RainParticle();
+	Domyœlny destruktor.
+
+class Rain
+
+pola:
+prywatne:
+
+	float density - gêstoœæ deszczu.
+	float speed - prêdkoœæ przemieszczania siê kropli.
+	int area - rozmiar obszaru, na którym ma byæ deszcz.
+	std::list<RainParticle> particles - lista cz¹steczek.
+
+metody:
+publiczne:
+
+	Rain();
+	Konstruktor wykorzystuj¹cy wartoœci domyœlne.
+
+	Rain(float density, float speed);
+	Konstruktor przyjmuj¹cy gêstoœæ deszczu oraz prêdkoœc przemieszczania siê cz¹steczek.
+
+	~Rain();
+	Destruktor zwalniaj¹cy listê cz¹steczek.
+
+	void emitParticles();
+	Emituje krople deszczu.
+
+	void affectParticles();
+	Przemieszcza krople deszczu i usuwa te, które dotar³y do pod³o¿a.
+
+	void displayRain();
+	Rysuje cz¹steczki deszczu.
+
+ServerMenu.h
+
+struct ServerProperties
+{
+	char host[100];
+	char port[5];
+};
+Struktura przechowuj¹ca adres i port serwera.
+
+class ServerMenu
+
+pola:
+prywatne:
+
+	ButtonStyle serverStyle - styl przycisku serwera.
+	ButtonStyle markedServerStyle - styl zaznaczonego przycisku serwera.
+	Button * buttons[SERVER_MENU_BUTTONS_COUNT] - tablica zawieraj¹ca przyciski menu.
+	Button * servers[SERVER_MAX_COUNT] - tablica przycisków serwerów.
+	int serverCount - iloœæ dostêpnych serwerów.
+	int markedServer - identyfikator zaznaczonego serwera.
+	int width, height - szerokoœæ oraz wysokoœæ ekranu.
+
+metody:
+publiczne:
+
+	ServerMenu(int w, int h);
+	Konstruktor przyjmuj¹cy szerokoœæ i wysokoœæ ekranu.
+
+	~ServerMenu();
+	Destruktor zwalniaj¹cy pamiêæ zajmowan¹ przez przyciski.
+
+	void drawServerMenu();
+	Rysuje menu.
+
+	void addServer(ServerProperties * serverProperties);
+	Dodaje nowy przycisk serwera.
+
+	ClickResult whatIsClicked(int x, int y, ServerProperties * serverProperties);
+	Zwraca identyfikator akcji klikniêtego przycisku lub wartoœæ NoneResult.
+	int x, int y - wspó³rzêdne kursora myszy.
+	ServerProperties * serverProperties - obiekt, do którego zapisywane s¹ parametry serwera, którego przycisk zosta³ klikniêty.
+
+prywatne:
+
+	void init();
+	Inicjalizuje przyciski.
+
+	void markServer(int id);
+	Zaznacza serwer.
+	int id - identyfikator serwera do zaznaczenia.
+
+UI.h
+
+enum ActiveTab
+{
+	BuildingTab,
+	ArmyTab
+};
+Typ wyliczeniowy oznaczaj¹cy aktualnie wybran¹ zak³adkê menu.
+
+class GameUI
+
+pola:
+publiczne:
+
+	int width, height - szerokoœæ i wysokoœæ menu.
+
+prywatne:
+
+	Color background - kolor t³a panelu menu.
+	Color font - kolor czcionki.
+	ActiveTab activeTab - aktualnie wybrana zak³adka menu.
+	MiniMap * map - obiekt minimapy.
+	Button * tabButtons[TAB_COUNT] - tablica zawieraj¹ca przyciski prze³¹czaj¹ce zak³adki.
+	Button * buildingButtons[BUILDING_COUNT] - tablica przycisków w zak³adce budynków.
+	Button * armyButtons[ARMY_COUNT] - tablica przycisków w zak³adce wojsk.
+
+metody:
+publiczne:
+
+	GameUI(int w, int h);
+	Konstruktor przyjmuj¹cy szerokoœæ i wysokoœæ ekranu.
+
+	~GameUI();
+	Destruktor zwalniaj¹cy pamiêæ zajmowan¹ przez przyciski i mini mapê.
+
+
+	void drawUI();
+	Rysuje panel interfejsu u¿ytkownika.
+
+	ClickResult whatIsClicked(int x, int y);
+	Zwraca identyfikator akcji klikniêtego przycisku lub wartoœæ NoneResult.
+
+prywatne:
+	void init();
+	Inicjalizuje interfejs u¿ytkownika.
+
+	void initButtons();
+	Inicjalizuje przyciski.
+
+	void drawText(int x, int y, Color font, char text[]);
+	Wypisuje tekst.
+	int x, iny y - wspó³rzêdne tekstu.
+	Color font - kolor czcionki.
+	char text[] - tekst do wypisania.
+
+	ClickResult isPanelClicked(int x, int y);
+	Sprawdza czy wspó³rzêdne kursora myszy nale¿a do panelu.
+	int x, int y - wspó³rzêdne kursora myszy.
+
+Type.h
+
+class Vector
+
+pola:
+publiczne:
+
+	float x, y, z;
+
+metody:
+publiczne:
+
+	Vector();
+	Konstruktor bezargumentowy.
+
+	Vector(const Vector &p);
+	Konstruktor kopiuj¹cy.
+
+	Vector(float x, float y, float z);
+	Konstruktor przyjmuj¹cy wartoœci wektora.
+
+	Vector(float tab[], int count);
+	Konstruktor przyjmuj¹cy tablicê wartoœci oraz ich licznik.
+
+	operator float* ();
+	Operator rzutowania na tablicê float.
+
+	float dot(Vector arg);
+	Oblicza iloczyn skalarny.
+
+	Vector cross(Vector arg);
+	Oblicza iloczyn wektorowy.
+
+class Color 
+
+pola:
+publiczne:
+	float r, g, b, a - wartosci red, green, blue i alfa.
+
+metody:
+publiczne:
+
+	Color();
+	Konstruktor bezargumentowy.
+
+	Color(const Color &c);
+	Konstruktor kopiuj¹cy.
+
+	Color(float r, float g, float b);
+	Konstruktor przyjmuj¹cy wartoœci nasycenia barw.
+
+	Color(float r, float g, float b, float a);
+	Konstruktor przyjmuj¹cy wartoœci nasycenia barw oraz wspó³czynnik alpha.
+
+	Color(float tab[], int count);
+	Konstruktor przyjmuj¹cy tablicê wartoœci oraz ich licznik.
+
+	operator float* ();
+	Operator rzutowania na tablicê float.
+
+class Light
+
+pola:
+prywatne:
+
+	int number - numer identyfikacyjny œwiat³a.
+	Vector pos - wspó³rzêdne œwiat³a.
+	Vector dir - kierunek œwiat³a.
+	float attenuation[3] - tablica wspó³czynników t³umienia.
+	float cutoff - k¹t rozszerzania siê œwiat³a.
+	float exponent - eksponenta t³umienia.
+
+metody:
+publiczne:
+
+	Light(int number, Vector pos, Vector dir, float* attenuation, float cutoff, float exponent);
+	Konstruktor przyjmuj¹cy parametry opisuj¹ce œwiat³o.
+	int number - numer identyfikacyjny œwiat³a.
+	Vector pos - wspó³rzêdne œwiat³a.
+	Vector dir - kierunek œwiat³a.
+	float * attenuation - tablica wspó³czynników t³umienia.
+	float cutoff - k¹t rozszerzania siê œwiat³a.
+	float exponent - eksponenta t³umienia.
+
+	int getNumber();
+	Zwraca numer identyfikacyjny œwiat³a.
+
+	Vector getPos();
+	Zwraca wspó³rzêdne œwiat³a.
+
+	Vector getDir();
+	Zwraca kierunek œwiat³a.
+
+	float getAttenuation(int i);
+	Zwraca tablicê wspó³czynników t³umienia.
+
+	float getCutoff();
+	Zwraca k¹t rozszerzania siê œwiat³a.
+
+	float getExponent();
+	Zwraca eksponentê t³umienia.
+
+	void setNumber(int mode);
+	Ustawia numer identyfikacyjny œwiat³a.
+
+	void setPos(Vector pos);
+	Ustawia wspó³rzêdne œwiat³a.
+
+	void setPos(float* pos);
+	Ustawia wspó³rzêdne œwiat³a.
+
+	void setDir(Vector dir);
+	Ustawia kierunek œwiat³a.
+
+	void setDir(float* dir);
+	Ustawia kierunek œwiat³a.
+
+	void setAttenuation(int mode, float attenuation);
+	Ustawia tablicê wspó³czynników t³umienia.
+
+	void setCutoff(float cutoff);
+	Ustawia k¹t rozszerzania siê œwiat³a.
+
+	void setExponent(float exponent);
+	Ustawia eksponentê t³umienia.
+
+
+
+
+
+
+	
+
+
+

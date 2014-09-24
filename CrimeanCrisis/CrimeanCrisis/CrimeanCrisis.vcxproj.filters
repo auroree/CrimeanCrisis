@@ -173,22 +173,11 @@
     <ClCompile Include="ServerMenu.cpp">
       <Filter>Source Files\Client</Filter>
     </ClCompile>
-<<<<<<< HEAD
     <ClCompile Include="Flame.cpp">
       <Filter>Source Files\Client</Filter>
     </ClCompile>
     <ClCompile Include="Particle.cpp">
       <Filter>Source Files\Client</Filter>
-=======
-    <ClCompile Include="RendController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Types.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Units.cpp">
-      <Filter>Source Files</Filter>
->>>>>>> db2e73575fd5d548603e6f115def4258e97d4f99
     </ClCompile>
   </ItemGroup>
 </Project>

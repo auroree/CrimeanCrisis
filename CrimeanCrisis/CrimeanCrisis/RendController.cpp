@@ -23,6 +23,7 @@ void RendController::init(std::list<GraphicObject> *o)
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);			// Display Mode
 	glutInitWindowSize(renderer->win.width, renderer->win.height);		// set window size
 	glutCreateWindow(renderer->win.title);
+
 	// create Window
 	glewExperimental = GL_TRUE;			// TESTING
 	glewInit();
@@ -79,6 +80,7 @@ void RendController::animate(int value) {
 	glutTimerFunc(20, animate, 1);
 	renderer->animate();
 }
+
 void RendController::keyboard(unsigned char key, int x, int y)
 {
 	renderer->keyboard(key, x, y);

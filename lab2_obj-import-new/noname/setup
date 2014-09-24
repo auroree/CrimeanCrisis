@@ -1,0 +1,5 @@
+﻿// self - player position
+
+self -2.0 2.0 10.0
+
+//models to import and their positions

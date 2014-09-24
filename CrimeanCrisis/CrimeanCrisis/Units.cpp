@@ -1,5 +1,4 @@
 #include "Units.h"
-
 // --- LIGHT
 Light::Light(int number, Vector pos, Vector dir, float* attenuation, float cutoff, float exponent) {
 	setNumber(number);

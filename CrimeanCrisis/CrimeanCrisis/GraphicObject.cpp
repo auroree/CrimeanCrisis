@@ -6,8 +6,8 @@ GraphicObject::GraphicObject()
 	this->TotalConnectedPoints = 0;
 
 	this->pos.x = 0.0;
-	this->pos.y = 3.5;
-	this->pos.z = 10.0;
+	this->pos.y = 4.5;								// 4.5 ??
+	this->pos.z = 0.0;
 
 	this->box.cfp.x = this->pos.x + objLength;		// uwzglêdniæ rotacjê?
 	this->box.cfp.y = this->pos.y + objWidth;
@@ -108,7 +108,6 @@ GraphicObject GraphicObject::operator=(const GraphicObject &rhs)
 	this->normalIndices = rhs.normalIndices;
 
 	this->vertexIndices = rhs.vertexIndices;
-
 	return *this;
 }
 
@@ -200,6 +199,7 @@ bool GraphicObject::loadOBJ(const char * path, const char * texturePath)
 
 	printf(".OBJ file opened successfully.\n");
 	//if(loadTexture(texturePath))
+
 	printf("Texture opened successfully.\n");
 	return true;
 }
@@ -345,8 +345,9 @@ void GraphicObject::SetDisplay()
 
 void GraphicObject::Draw()
 {
-	glTranslatef(pos.x, pos.y, pos.z);
-	glRotatef(rot.x, rot.y, rot.z, 2);
+	glPushMatrix();
+	glTranslatef(this->pos.x, this->pos.y, this->pos.z);
+	//glRotatef(0, rot.x, rot.y, rot.z);
 	glColor3fv(Color);
 
 	// !!! TESTING AREA !!!
@@ -371,4 +372,6 @@ void GraphicObject::Draw()
 	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, defaultSpecular);
 	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, defaultShininess);
 	glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, defaultEmission);
+
+	glPopMatrix();
 }

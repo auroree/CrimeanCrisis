@@ -171,7 +171,7 @@ void GameUI::drawText(int x, int y, Color font, char text[])
 
 ClickResult GameUI::isPanelClicked(int x, int y)
 {
-	if (x < width && y < height)
+	if (x < width && y < 150)
 	{
 		return Panel;
 	}

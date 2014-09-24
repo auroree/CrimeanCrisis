@@ -13,7 +13,7 @@ Sound::Sound()
 		audio_channels, audio_buffers) != 0) {
 		std::cout << "Unable to initialize audio: "
 			<< Mix_GetError() << "\n";
-		exit(1);
+	//	exit(1);
 	}
 }
 

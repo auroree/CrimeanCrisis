@@ -42,6 +42,56 @@ Vector Vector::cross(Vector arg) {
 	return v;
 }
 
+void Vector::add(Vector a) {
+	x += a.x;
+	y += a.y;
+	z += a.z;
+}
+
+void Vector::sub(Vector a) {
+	x -= a.x;
+	y -= a.y;
+	z -= a.z;
+}
+void Vector::set(Vector a) {
+	x = a.x;
+	y = a.y;
+	z = a.z;
+}
+
+void Vector::normalize() {
+	float length = l2norm();
+	this->x /= length;
+	this->y /= length;
+	this->z /= length;
+}
+
+void Vector::scale(float s) {
+	x *= s;
+	y *= s;
+	z *= s;
+}
+
+void Vector::crossAndAssign(Vector a, Vector b) {
+	float tempX = a.y * b.z - a.z * b.y;
+	float tempY = a.z * b.x - a.x * b.z;
+	float tempZ = a.x * b.y - a.y * b.x;
+
+	x = tempX;
+	y = tempY;
+	z = tempZ;
+}
+
+void Vector::subAndAssign(Vector a, Vector b) {
+	x = a.x - b.x;
+	y = a.y - b.y;
+	z = a.z - b.z;
+}
+
+float Vector::l2norm() {
+	return (float)sqrt(x*x + y*y + z*z);
+}
+
 // --- COLOR 
 
 Color::Color() {
@@ -80,4 +130,3 @@ Color::Color(float tab[], int count) {
 Color::operator float* () {
 	return reinterpret_cast<float*>(this);
 }
-

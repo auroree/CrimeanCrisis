@@ -1,6 +1,7 @@
 #pragma once
 
 #define _CRT_SECURE_NO_WARNINGS
+#define _USE_MATH_DEFINES
 #define CUT_PARAM 10.0f
 //#define GLEW_STATIC
 
@@ -58,9 +59,10 @@ public:
 	void mouse(int, int, int, int);
 	void resize(int, int);
 	void animate();
-
 	void set3D(int w, int h);
 	void set2D(int w, int h);
+	void prepareToSelection();				// must be used if camera setting have changed
+	void pick();
 
 	void defaultMaterial();
 	void setLight(Light light);
@@ -70,6 +72,11 @@ public:
 	bool IsRaining() { return isRaining; }
 
 	glutWindow win;
+
+	// ray casting
+	void intersectionWithXyPlane(float* worldPos);
+	Vector getClickPosInWorld();
+	Vector getDirection();
 	
 private:
 	Screen screen;
@@ -82,6 +89,11 @@ private:
 
 	Vector cam;					// po³o¿enie kamery
 	Vector dir;					// ukierunkowanie kamery
+	
+	Vector camView;				// viewing direction
+	Vector up;
+	Vector camPos;					// TESTING
+	//Vector lookAt;
 
 	float nearParam, farParam,
 		leftParam, rightParam,
@@ -94,12 +106,17 @@ private:
 	MainMenu * mainMenu;
 	ServerMenu * serverMenu;
 
+	// roboczo
 	bool isRaining;
 
 	void displayGameScreen();
 	void displayMainMenuScreen();
 	void displayServerMenuScreen();
+
+	// ray casting
+	Vector clickPosInWorld;		// two points describing picking ray
+	Vector rayDirection;
+	Vector screenHoritzontally;
+	Vector screenVertically;
+	float* point;
 };
-
-
-
